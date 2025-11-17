@@ -182,7 +182,7 @@ async function main() {
                         let subId = response.responseText.split(`"sub_id"`)[2].split(`"`)[1];
                         // 获取系统分类名
                         req_url = `http://admin.qipeiyigou.com/Ajax/VT/AjaxGetInfo.php?ch_id=${channelId}&req_method=5&one_cid=${bigId}&two_cid=${subId}`;
-                        publics.sendRequest(req_url, decodedCookie, "GET", function (response) {
+                        publics.sendRequest(req_url, "", "GET", function (response) {
                             let one_class = response.responseText.split(`"${bigId}","classname":`)[1].split(",")[0].split(`"`)[1];
                             let two_class = response.responseText.split(`"${subId}","classname":`)[1].split(",")[0].split(`"`)[1];
                             $("#span2").text(`系统分类: ${channelName}-${one_class}-${two_class}`);
@@ -248,4 +248,4 @@ let interval = setInterval(function () {
         }
     }
 }, 10);
-// End-251-2025.11.17.164800
+// End-251-2025.11.17.175622
