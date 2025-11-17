@@ -15,7 +15,7 @@ async function main() {
         publics.setAndLog("auth", auth);
         auth = publics.getAndLog("auth");
     }
-    alert("auth0", auth[0])
+    alert(auth[0])
     if (url.includes("qipeiyigou.com")) {
         // admin权限
         if (auth[0] === "1") {
@@ -249,3 +249,4 @@ let interval = setInterval(function () {
     }
 }, 10);
 // End-250-2025.11.17.155731
+
