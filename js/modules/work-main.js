@@ -122,11 +122,11 @@ async function main() {
                         $("#shop-cat").attr("title", `${big_shop_class}-${sub_shop_class}`);
                     });
                 });
-                $(document).on("mouseenter", "body", function () {
+                setInterval(() => {
                     if (!$(".header-nav #shop-info").length) {
                         publics.moveElement("#shop-info", ".header-nav");
                     }
-                });
+                }, 1000);
             }
             else if (url.includes("mshop/product/item")) {
                 // 店铺产品详情页
@@ -190,7 +190,7 @@ async function main() {
                         });
                     }
                 });
-                $(document).on("mouseenter", "body", function () {
+                setInterval(() => {
                     if (!$(".main .v-x-scroll #tipx").length) {
                         publics.moveElement("#tipx", ".main .v-x-scroll");
                         let top = $(".content-wrap").offset().top + "px";
@@ -198,7 +198,7 @@ async function main() {
                         $("#divx").css("top", top);
                         $("#divx").css("left", left);
                     }
-                });
+                }, 1000);
             }
         }
     }
@@ -248,4 +248,4 @@ let interval = setInterval(function () {
         }
     }
 }, 10);
-// End-251-2025.11.17.175622
+// End-251-2025.11.17.181450
