@@ -1,0 +1,28 @@
+{
+  "scopeList": ["global"],
+  "scopes": {
+    "global": {
+      "clearDownloadHistory": "keepOne",
+      "collectFromFrames": true,
+      "contextMenu": false,
+      "customIcon": true,
+      "defaultExt": ".jpg",
+      "defaultName": "",
+      "detectLink": true,
+      "displayImageSizeUnderThumbnail": true,
+      "downloadButton": false,
+      "downloadButtonPositionHorizontal": "LEFT_OUTSIDE",
+      "dragndrop": false,
+      "escapeFF127": true,
+      "escapeZWJ": true,
+      "filePattern": "Image Picka/${pageTitle}/${alt}${ext}",
+      "filePatternBatch": "Image Picka/${pageTitle}/${alt}${ext}",
+      "filePatternBatchHistory": [],
+      "filePatternHistory": [],
+      "matchUrl": "#1024down",
+      "matchUrlHistory": [],
+      "minHeight": 0,
+      "minWidth": 0
+    }
+  }
+}
