@@ -102,6 +102,7 @@ async function main() {
                     </div>
                     `;
                 $("body").append(html);
+                alert();
                 setInterval(() => {
                     let top = $("#siteHeaderMenu").offset().top + "px";
                     $("#shop-info").css("top", top);
@@ -257,3 +258,4 @@ let interval = setInterval(function () {
     }
 }, 1000);
 // End-261-2025.11.19.130504
+
