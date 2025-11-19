@@ -13,7 +13,7 @@ function loadSuccess(response) {
             "https://1024nettech.github.io/work/css/work-public.css?time=1&module=0"
         ];
         publics.loadFiles(urls);
-        if (url.includes("1688.com") || url.includes("tmall.com") || url.includes("taobao.com") || url.includes("jd.com")) {
+        if (url.includes("1688.com") || url.includes("tmall.com") || url.includes("taobao.com") || url.includes("jd0.com")) {
             let urls = [
                 "https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/jquery/4.0.0-rc.1/jquery.min.js?time=0&module=0",
                 "https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/html2canvas/1.4.1/html2canvas.min.js?time=0&module=0"
@@ -31,3 +31,4 @@ function update() {
 let version_url = `https://1024nettech.github.io/work/js/version.json?t=${Date.now()}`;
 update();
 // End-33-2025.11.18.131123
+
