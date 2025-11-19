@@ -99,6 +99,11 @@ function img_rename() {
         });
         // 详情图修改：修改 #J-detail-content img 内部图片的 alt 和 src 后缀
         document.querySelectorAll("#J-detail-content img").forEach((img, index) => {
+            // 如果存在 data-lazyload-src，先赋值给 src
+            if (img.hasAttribute("data-lazyload")) {
+                img.src = img.getAttribute("data-lazyload");
+            }
+
             img.alt = `详情图-${index + 1}`;
             // 只在 src 中不包含 #1024down 时修改
             if (!img.src.includes("#1024down")) {
