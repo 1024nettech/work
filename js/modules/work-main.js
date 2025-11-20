@@ -2,6 +2,7 @@ import * as publics from "./public.js"
 import * as admin from "./admin.js"
 import * as qipei from "./qipei.js"
 import * as ali from "./ali.js"
+import { $4, default4, jQuery4 } from './jquery.js';
 async function main() {
     const url = location.href;
     let auth = localStorage.getItem("auth"); // 000: 第一位为admin权限, 第二位为组长查店铺权限, 第三位为截图权限
@@ -259,3 +260,4 @@ let interval = setInterval(function () {
     }
 }, 1000);
 // End-261-2025.11.19.144407
+
