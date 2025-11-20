@@ -2,7 +2,7 @@ import * as publics from "./public.js"
 import * as admin from "./admin.js"
 import * as qipei from "./qipei.js"
 import * as ali from "./ali.js"
-import { $4, default4, jQuery4 } from './jquery.js';
+import { $ } from './jquery.js';
 alert($4("title").text());
 async function main() {
     const url = location.href;
@@ -261,5 +261,6 @@ let interval = setInterval(function () {
     }
 }, 1000);
 // End-261-2025.11.19.144407
+
 
 
