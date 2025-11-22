@@ -60,7 +60,7 @@ function img_rename() {
         $("#J-detail-content .ssd-module-wrap div.ssd-module").each((index, module) => {
             let data_id = $(module).attr("data-id");
             let selector = `.ssd-module-wrap .${data_id}`;
-            let bgUrl = $(selector).css("background-image").slice(4, -1);
+            let bgUrl = "https" + $(selector).css("background-image").slice(4, -1);
             let img = $("<img>").attr("src", bgUrl).css("display", "none");
             $(module).html(img);
         });
