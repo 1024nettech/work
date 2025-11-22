@@ -24,6 +24,41 @@ function img_rename() {
                 img.src = $(img).attr("data-lazyload-src");
             }
         }).addClass("xiangqingtux");
+
+
+// 获取包含 shadow DOM 的宿主元素
+let $shadowHost = $(".html-description"); 
+
+// 获取 shadowRoot (open 类型)
+let shadowRoot = $shadowHost[0].shadowRoot;
+
+// 获取 #detail 元素
+let $detailElement = $(shadowRoot).find("#detail");
+
+// 获取 detailElement 中的所有 img 元素
+$detailElement.find("img").each((index, img) => {
+    // 设置 alt 属性，添加前导零（如果需要）
+    let indexWithZero = index + 1 < 10 ? `0${index + 1}` : index + 1;
+    $(img).attr("alt", `C详情图-${indexWithZero}`);
+
+    // 修改 img 的 src 属性，确保去除旧的 #1024down，并添加新的后缀
+    let newSrc = $(img).attr("src").split("#1024down")[0] + `#1024down-${indexWithZero}`;
+    $(img).attr("src", newSrc);
+
+    // 创建一个新的 img 元素并添加到 body
+    let $newImg = $("<img>").attr("src", newSrc)
+                            .attr("alt", `C详情图-${indexWithZero}`)
+                            .addClass("xiangqingtux")
+                            .css("display", "none");  // 隐藏图片
+
+    // 将新创建的 img 元素添加到 body
+    $("body").append($newImg);
+});
+
+
+
+
+        
     }
     else if (url.includes("https://detail.tmall.com/item.htm") || url.includes("https://item.taobao.com/item.htm")) {
 
@@ -95,3 +130,4 @@ function img_rename() {
 }
 export { img_rename };
 // End-97-2025.11.22.115746
+
