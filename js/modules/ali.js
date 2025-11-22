@@ -29,7 +29,9 @@ function img_rename() {
             // 新版页面
 
             // 主图修改：修改 .detail-gallery-img 的图片, 添加类名
-            $(".od-gallery-img:not(.video-icon + .od-gallery-img)").addClass("zhutux");
+            $(".od-gallery-img:not(.video-icon + .od-gallery-img)").each((index, img) => {
+                img.src = img.src.split("_.webp")[0].split("_b")[0];
+            }).addClass("zhutux");
 
             // 规格图修改：修改 #skuSelection img 的图片, 添加类名
             $("#skuSelection img").each((index, img) => {
@@ -118,4 +120,4 @@ function img_rename() {
     });
 }
 export { img_rename };
-// End-121-2025.11.22.135707
+// End-123-2025.11.22.140832
