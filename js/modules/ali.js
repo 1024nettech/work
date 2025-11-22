@@ -60,8 +60,8 @@ function img_rename() {
         $("#J-detail-content .ssd-module-wrap div.ssd-module").each((index, module) => {
             let data_id = $(module).attr("data-id");
             let selector = `.ssd-module-wrap .${data_id}`;
-            let bgUrl = "https" + $(selector).css("background-image").slice(4, -1);
-            console.log(bgUrl);
+            let bgUrl = "https" + $(selector).css("background-image").slice(4, -1).replaceAll('"', "");
+            
             let img = $("<img>").attr("src", bgUrl).css("display", "none");
             $(module).html(img);
         });
@@ -95,4 +95,5 @@ function img_rename() {
 }
 export { img_rename };
 // End-96-2025.11.22.111346
+
 
