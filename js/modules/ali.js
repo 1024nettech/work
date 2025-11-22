@@ -58,10 +58,10 @@ function img_rename() {
 
         // 详情图修改：修改 #J-detail-content .ssd-module-wrap div.ssd-module 背景图片转图片
         $("#J-detail-content .ssd-module-wrap div.ssd-module").each((index, module) => {
+            $(module).find("img").remove();
             let data_id = $(module).attr("data-id");
             let selector = `.ssd-module-wrap .${data_id}`;
-            let bgUrl = "https" + $(selector).css("background-image").slice(4, -1).replaceAll('"', "");
-            
+            let bgUrl = $(selector).css("background-image").slice(4, -1).replaceAll('"', "");
             let img = $("<img>").attr("src", bgUrl).css("display", "none");
             $(module).html(img);
         });
@@ -94,6 +94,4 @@ function img_rename() {
     });
 }
 export { img_rename };
-// End-96-2025.11.22.111346
-
-
+// End-97-2025.11.22.115746
