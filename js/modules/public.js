@@ -301,7 +301,7 @@ function onKeyUp(key, callback) {
         }
     });
 }
-function copyTextOnClick(selectors) {
+function copyTextOnClick0(selectors) {
     $(document).on('click', selectors, function () {
         const $this = $(this);
         const text = $this.text().trim();
@@ -317,5 +317,34 @@ function copyTextOnClick(selectors) {
         });
     });
 }
+function copyTextOnClick(selector) {
+    // 使用事件委托：将事件监听器绑定到父元素上
+    document.addEventListener('click', function (event) {
+        // 获取点击的目标元素
+        const target = event.target;
+
+        // 判断目标元素是否匹配指定的选择器
+        if (target.matches(selector)) {
+            const text = target.textContent.trim();
+
+            // 将文本写入剪贴板
+            navigator.clipboard.writeText('')
+                .then(() => {
+                    return navigator.clipboard.writeText(text);
+                })
+                .then(() => {
+                    // 给目标元素添加绿色反馈效果
+                    target.style.color = 'green';
+                    setTimeout(() => {
+                        target.style.color = '';
+                    }, 500);
+                })
+                .catch(err => {
+                    console.error('剪贴板操作失败:', err);
+                });
+        }
+    });
+}
 export { sendRequest, loadFiles, generateTimestamp, sliceImage, takeScreenshots, clearAll, setAndLog, getAndLog, waitfor, parseJson, getUrlParameter, addDownloadButton, onKeyUp, copyTextOnClick }
 // End-321-2025.11.26.091038
+
