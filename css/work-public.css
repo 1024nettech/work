@@ -1,0 +1,66 @@
+/*——————————————————————————————————————————————————公共 Start——————————————————————————————————————————————————*/
+#downloadVideoButton_tb {
+    position: absolute;
+    right: 150px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.uploadx {
+    opacity: 0;
+    width: 100px;
+    height: 26px;
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    z-index: 10000;
+}
+
+.uploadx+input {
+    display: none;
+}
+
+/*——————————————————————————————————————————————————公共 End——————————————————————————————————————————————————*/
+/*——————————————————————————————————————————————————1688 Start——————————————————————————————————————————————————*/
+#modex,
+#processing-message {
+    width: 100px;
+    height: 30px;
+    position: fixed;
+    right: 50px;
+    color: white;
+    background-color: #0099ff;
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#modex {
+    top: 50px;
+}
+
+#processing-message {
+    top: 85px;
+}
+
+/*——————————————————————————————————————————————————1688 End——————————————————————————————————————————————————*/
+/*——————————————————————————————————————————————————draw.io绘图 Start——————————————————————————————————————————————————*/
+.mxgraph {
+    width: calc(100vw - 2px) !important;
+    height: calc(100vh - 27px) !important;
+    border: 1px solid transparent;
+    position: fixed !important;
+    touch-action: none;
+    color-scheme: light;
+    cursor: pointer;
+    overflow: hidden;
+    margin-top: 25px !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+/*——————————————————————————————————————————————————draw.io绘图 End——————————————————————————————————————————————————*/
+/* End-66-2025.11.28.092655 */
