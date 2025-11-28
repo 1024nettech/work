@@ -150,7 +150,7 @@ function zhutu_upload() {
             if ($nextUpload.length) {
                 $nextUpload.trigger('click'); // 自动触发下一个 uploadx 元素
             }
-        }, 500); // 500ms 延迟，可以根据实际情况调整
+        }, 1000); // 500ms 延迟，可以根据实际情况调整
     }
 
     // 将 dataURL 转换为 Blob 对象
@@ -210,3 +210,4 @@ function zhutu_upload() {
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload }
 // End-203-2025.11.28.092523
+
