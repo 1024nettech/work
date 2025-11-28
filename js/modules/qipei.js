@@ -124,13 +124,15 @@ function zhutu_upload() {
 
                             // 将 canvas 转换为 Blob 并上传
                             canvas.toBlob(function (blob) {
+                                 triggerNextUpload(event); // 延迟触发下一个 uploadx 按钮
                                 uploadImage(blob, file.name, event); // Pass the event to the upload function
-                                triggerNextUpload(event); // 延迟触发下一个 uploadx 按钮
+                               
                             }, 'image/png');
                         } else {
+                             triggerNextUpload(event); // 延迟触发下一个 uploadx 按钮
                             // 正方形图片直接上传
                             uploadImage(dataURLtoBlob(e.target.result), file.name, event); // Pass the event to the upload function
-                            triggerNextUpload(event); // 延迟触发下一个 uploadx 按钮
+                           
                         }
                     };
                     img.src = e.target.result;
@@ -210,4 +212,5 @@ function zhutu_upload() {
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload }
 // End-203-2025.11.28.092523
+
 
