@@ -95,22 +95,11 @@ function zhutu_upload() {
         $fileInput.trigger('click');
 
         $fileInput.on('change', function (event) {
-
-            // 跳过一行tr，查找下一个uploadx元素
-            let $nextUpload = $(this).closest('tr').next().next('tr').find('.uploadx'); // Skip one row and find the next uploadx
-            if ($nextUpload.length) {
-                $nextUpload.trigger('click'); // 自动触发下一个 uploadx 元素
-            }
-            
-            let file = event.target.files[0];
-            if (file) {
             // 修改紧邻后面的兄弟input元素的边框颜色
             $(this).next('input').css("border", "1px solid green"); // Change the border color of the next input element
 
-
-
-
-                
+            let file = event.target.files[0];
+            if (file) {
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     let img = new Image();
@@ -136,10 +125,12 @@ function zhutu_upload() {
                             // 将 canvas 转换为 Blob 并上传
                             canvas.toBlob(function (blob) {
                                 uploadImage(blob, file.name, event); // Pass the event to the upload function
+                                triggerNextUpload(event); // 延迟触发下一个 uploadx 按钮
                             }, 'image/png');
                         } else {
                             // 正方形图片直接上传
                             uploadImage(dataURLtoBlob(e.target.result), file.name, event); // Pass the event to the upload function
+                            triggerNextUpload(event); // 延迟触发下一个 uploadx 按钮
                         }
                     };
                     img.src = e.target.result;
@@ -147,10 +138,20 @@ function zhutu_upload() {
                 reader.readAsDataURL(file);
             }
 
-
         });
     });
 
+    // 用于延迟触发下一个按钮的函数
+    function triggerNextUpload(event) {
+        // 使用 setTimeout 确保文件上传操作完成后再触发下一个 uploadx
+        setTimeout(function () {
+            // 跳过一行tr，查找下一个uploadx元素
+            let $nextUpload = $(event.target).closest('tr').next().next('tr').find('.uploadx'); // Skip one row and find the next uploadx
+            if ($nextUpload.length) {
+                $nextUpload.trigger('click'); // 自动触发下一个 uploadx 元素
+            }
+        }, 500); // 500ms 延迟，可以根据实际情况调整
+    }
 
     // 将 dataURL 转换为 Blob 对象
     function dataURLtoBlob(dataURL) {
@@ -208,6 +209,4 @@ function zhutu_upload() {
 
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload }
-
 // End-203-2025.11.28.092523
-
