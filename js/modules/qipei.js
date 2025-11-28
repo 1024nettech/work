@@ -97,6 +97,17 @@ function zhutu_upload() {
         $fileInput.on('change', function (event) {
             let file = event.target.files[0];
             if (file) {
+            // 修改紧邻后面的兄弟input元素的边框颜色
+            $(this).next('input').css("border", "1px solid green"); // Change the border color of the next input element
+            // 跳过一行tr，查找下一个uploadx元素
+            let $nextUpload = $(this).closest('tr').next().next('tr').find('.uploadx'); // Skip one row and find the next uploadx
+            if ($nextUpload.length) {
+                $nextUpload.trigger('click'); // 自动触发下一个 uploadx 元素
+            }
+
+
+
+                
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     let img = new Image();
@@ -133,13 +144,7 @@ function zhutu_upload() {
                 reader.readAsDataURL(file);
             }
 
-            // 修改紧邻后面的兄弟input元素的边框颜色
-            $(this).next('input').css("border", "1px solid green"); // Change the border color of the next input element
-            // 跳过一行tr，查找下一个uploadx元素
-            let $nextUpload = $(this).closest('tr').next().next('tr').find('.uploadx'); // Skip one row and find the next uploadx
-            if ($nextUpload.length) {
-                $nextUpload.trigger('click'); // 自动触发下一个 uploadx 元素
-            }
+
         });
     });
 
@@ -200,4 +205,5 @@ function zhutu_upload() {
 
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload }
+
 // End-203-2025.11.28.092523
