@@ -60,7 +60,7 @@ function rename() {
 
         // 规格图修改：修改 #skuOptionsArea 的 img[class^="valueItemImg--"] 的图片, 添加类名
         $("#skuOptionsArea img[class^='valueItemImg--']").each((index, img) => {
-            img.src = img.src.split("_90x90q30")[0];
+            img.src = img.src.split("_90x90q30")[0].split("_.webp")[0];
         }).addClass("guigetux");
 
         // 详情图修改：修改 #content img 的图片, 添加类名
@@ -121,3 +121,4 @@ function rename() {
 }
 export { rename };
 // End-123-2025.11.22.150000
+
