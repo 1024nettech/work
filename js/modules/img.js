@@ -69,8 +69,8 @@ function rename() {
         }
     }
     else if (url.includes("https://detail.tmall.com/item.htm") || url.includes("https://item.taobao.com/item.htm")) {
-        let html = `${$("span[class^=mainTitle--]").text().trim()}|@@|${$("span[class^=mainTitle--]").text().trim()}|@@|${$("span[class=^symbol--]:first+span").text().trim()}|@@|件|@@|${$("input[class^=countValue--]").val()}|@@|10000|@@|${$("#content").html()}`;
-        copyToClipboard("p[class^=tabDetailItemTitle--]", html);
+        //let html = `${$("span[class^=mainTitle--]").text().trim()}|@@|${$("span[class^=mainTitle--]").text().trim()}|@@|${$("span[class=^symbol--]:first+span").text().trim()}|@@|件|@@|${$("input[class^=countValue--]").val()}|@@|10000|@@|${$("#content").html()}`;
+        //copyToClipboard("p[class^=tabDetailItemTitle--]", html);
         // 主图修改：修改 #picGalleryEle img[class^="thumbnailPic--"] 的图片, 添加类名
         $("#picGalleryEle img[class^='thumbnailPic--']").each((index, img) => {
             img.src = img.src.split("_q50.jpg_.webp")[0];
