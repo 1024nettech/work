@@ -88,7 +88,7 @@ function rename() {
         }).addClass("guigetux");
 
         // 详情图修改：修改 #content img 的图片, 添加类名
-        $("#content img").each((index, img) => {
+        $("#content img, #imageTextInfo-container img").each((index, img) => {
             if ($(img).attr("data-src")) {
                 img.src = $(img).attr("data-src");
             }
@@ -146,4 +146,4 @@ function rename() {
     });
 }
 export { rename };
-// End-149-2025.11.29.161916
+// End-149-2025.12.10.101430
