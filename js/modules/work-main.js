@@ -256,6 +256,9 @@ async function main() {
     else if (url.includes("https://item.jd.com/")) {
         publics.copyTextOnClick(".infomation span, .infomation i, .goods-base div");
     }
+    else {
+        img.rename();
+    }
 }
 let interval = setInterval(function () {
     if ((document.readyState === "complete" || document.readyState === "interactive")) {
@@ -268,4 +271,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-271-2025.11.29.162229
+// End-274-2025.12.13.140047
