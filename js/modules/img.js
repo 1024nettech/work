@@ -2,6 +2,29 @@ import { $ } from "./jquery.js";
 import * as publics from "./public.js";
 const url = location.href;
 function rename() {
+    // 将背景图转换为 img 元素的函数
+    function convertBgToImg(element) {
+        let backgroundImage = window.getComputedStyle(element).backgroundImage;
+        if (backgroundImage && backgroundImage !== "none") {
+            // 提取背景图像的 URL 部分
+            let urlMatch = backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+            if (urlMatch && urlMatch[1]) {
+                let imageUrl = urlMatch[1];
+                // 创建一个新的 img 元素
+                let img = document.createElement("img");
+                // 添加 #1024down 后缀
+                img.src = imageUrl + '#1024down';
+                img.style.display = "none"; // 隐藏新建的 img 元素
+
+                // 将 img 元素插入到原始元素的后面作为兄弟元素
+                element.parentNode.insertBefore(img, element.nextSibling);
+            }
+        }
+    }
+    // 定义格式化索引函数，用于生成 "1024down-n" 格式的 alt 属性值
+    function formatIndex(index) {
+        return "1024down-" + (index + 1); // 索引从 0 开始，所以加 1
+    }
     function copyToClipboard(selector, text) {
         $(selector).on('click', function () {
             // 使用 Clipboard API 复制文本到剪贴板
@@ -126,6 +149,27 @@ function rename() {
             img.src = img.src.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1];
         }).addClass("xiangqingtux");
     }
+    else {
+        // 其他网站, 背景图转img
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" || event.code === "Escape") {
+                // 获取所有具有背景图的元素
+                let allElements = document.querySelectorAll("*");
+                allElements.forEach(function (element) {
+                    convertBgToImg(element);
+                });
+
+                // 获取所有的 img 元素
+                let images = document.querySelectorAll("img");
+
+                // 遍历所有 img 元素并设置 alt 属性
+                images.forEach((img, index) => {
+                    img.alt = formatIndex(index); // 使用格式化后的 alt 值
+                });
+                console.log("背景图转img完成……")
+            }
+        });
+    }
 
     $(".zhutux").each((index, img) => {
         let indexWithZero = index + 1 < 10 ? `0${index + 1}` : index + 1;
@@ -146,4 +190,4 @@ function rename() {
     });
 }
 export { rename };
-// End-149-2025.12.10.102758
+// End-193-2025.12.13.135525
