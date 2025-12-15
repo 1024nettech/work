@@ -141,9 +141,11 @@ function rename() {
         $("*").each(function () {
             convertBgToImg(this);
         });
-        $("img").each(function (index) {
-            this.alt = index + 1;
-        });
+        if (!url.includes("sc_product.php")) {
+            $("img").each(function (index) {
+                this.alt = index + 1;
+            });
+        }
         console.log("背景图转img完成……");
     }
 
@@ -166,4 +168,4 @@ function rename() {
     });
 }
 export { rename };
-// End-169-2025.12.15.101453
+// End-171-2025.12.15.160133
