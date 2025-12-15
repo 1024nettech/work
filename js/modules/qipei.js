@@ -404,11 +404,12 @@ function xiangqingtu_upload() {
             var alt = img.attr('alt');
 
             // 获取图片的二进制数据并上传
-            fetchImageData(imageUrl.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1]).then(function (imageData) {
+            fetchImageData(imageUrl).then(function (imageData) {
                 // 动态获取图片类型和大小
                 var filetype = getImageFileType(imageData);
                 var filesize = imageData.byteLength;
-
+                console.log(filetype);
+                console.log(filesize);
                 // 上传图片
                 uploadImage(imageData, filetype, filesize, img, alt);
             }).catch(function (error) {
