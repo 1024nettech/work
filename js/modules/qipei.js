@@ -424,7 +424,7 @@ function xiangqingtu_upload() {
         return new Promise((resolve, reject) => {
             GM_xmlhttpRequest({
                 method: 'GET',
-                url: url,
+                url: url.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1],
                 responseType: 'arraybuffer',
                 onload: function (response) {
                     if (response.status === 200) {
@@ -548,4 +548,4 @@ function xiangqingtu_upload() {
     });
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-550-2025.12.15.152207
+// End-551-2025.12.15.154031
