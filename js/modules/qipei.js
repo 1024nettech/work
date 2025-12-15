@@ -103,7 +103,12 @@ function zhutu_upload() {
             </td>
         </tr>
         `;
-    $("#add_guige").parents("tr").before(html);
+    if ($("#add_guige").length) {
+        $("#add_guige").parents("tr").before(html);
+    }
+    else {
+        $("#mp4_upload").parents("tr").before(html);
+    }
     $("#zhutu").click(function () {
         // Get the file input element
         let $fileInput = $(this).next('input[type="file"]');
@@ -542,4 +547,4 @@ function xiangqingtu_upload() {
     });
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-545-2025.11.29.163253
+// End-550-2025.12.15.144802
