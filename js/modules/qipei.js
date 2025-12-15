@@ -400,11 +400,11 @@ function xiangqingtu_upload() {
 
         images.each(function () {
             var img = $(this);
-            var imageUrl = img.attr('src').match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1];
+            var imageUrl = img.attr('src');
             var alt = img.attr('alt');
 
             // 获取图片的二进制数据并上传
-            fetchImageData(imageUrl).then(function (imageData) {
+            fetchImageData(imageUrl.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1]).then(function (imageData) {
                 // 动态获取图片类型和大小
                 var filetype = getImageFileType(imageData);
                 var filesize = imageData.byteLength;
@@ -547,4 +547,4 @@ function xiangqingtu_upload() {
     });
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-550-2025.12.15.145629
+// End-550-2025.12.15.152207
