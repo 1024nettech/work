@@ -194,7 +194,7 @@ function zhutu_upload() {
         formData.append('name', filename);
         formData.append('chunk', 0);
         formData.append('chunks', 1);
-        let url = location.origin + "/Ajax/plupload.php?username=qipeiyigouwang&set_type=2";
+        let url = location.origin + `/Ajax/plupload.php?username=${publics.getUrlParameter(location.href, "username")}&set_type=2`;
 
         // Use fetch to upload
         fetch(url, {
@@ -335,7 +335,7 @@ function guigetu_upload() {
         formData.append('chunk', 0);
         formData.append('chunks', 1);
 
-        let url = location.origin + "/Ajax/plupload.php?username=qipeiyigouwang&type=10";
+        let url = location.origin + `/Ajax/plupload.php?username=${publics.getUrlParameter(location.href, "username")}&type=10`;
 
         fetch(url, {
             method: 'POST',
@@ -547,4 +547,4 @@ function xiangqingtu_upload() {
     });
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-550-2025.12.15.144802
+// End-550-2025.12.15.145629
