@@ -2,45 +2,32 @@ import { $ } from "./jquery.js";
 import * as publics from "./public.js";
 const url = location.href;
 function rename() {
-    // 将背景图转换为 img 元素的函数
     function convertBgToImg(element) {
+        // 将背景图转换为 img 元素的函数
         let backgroundImage = window.getComputedStyle(element).backgroundImage;
         if (backgroundImage && backgroundImage !== "none") {
-            // 提取背景图像的 URL 部分
             let urlMatch = backgroundImage.match(/url\(["']?(.*?)["']?\)/);
             if (urlMatch && urlMatch[1]) {
                 let imageUrl = urlMatch[1];
-                // 创建一个新的 img 元素
                 let img = document.createElement("img");
-                // 添加 #1024down 后缀
                 img.src = imageUrl + '#1024down';
-                img.style.display = "none"; // 隐藏新建的 img 元素
-
-                // 将 img 元素插入到原始元素的后面作为兄弟元素
+                img.style.display = "none";
                 element.parentNode.insertBefore(img, element.nextSibling);
             }
         }
     }
-    // 定义格式化索引函数，用于生成 "1024down-n" 格式的 alt 属性值
-    function formatIndex(index) {
-        return "1024down-" + (index + 1); // 索引从 0 开始，所以加 1
-    }
     function copyToClipboard(selector, text) {
+        // 使用 Clipboard API 复制文本到剪贴板
         $(selector).on('click', function () {
-            // 使用 Clipboard API 复制文本到剪贴板
             let suffix = `<style>.product-content {max-width: 888px !important;}</style>`;
             text += suffix;
             navigator.clipboard.writeText(text).then(function () {
-                // 复制成功后，做一些操作，比如提示用户
-                // alert('文本已复制到剪贴板！');
                 $(selector).css("color", "green");
                 setTimeout(() => {
                     $(selector).css("color", "");
                 }, 500);
             }).catch(function (err) {
-                // 复制失败时的错误处理
-                console.error('复制失败:', err);
-                // alert('复制失败，请重试！');
+                console.error('复制失败: ', err);
             });
         });
     }
@@ -151,24 +138,13 @@ function rename() {
     }
     else {
         // 其他网站, 背景图转img
-        document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape" || event.code === "Escape") {
-                // 获取所有具有背景图的元素
-                let allElements = document.querySelectorAll("*");
-                allElements.forEach(function (element) {
-                    convertBgToImg(element);
-                });
-
-                // 获取所有的 img 元素
-                let images = document.querySelectorAll("img");
-
-                // 遍历所有 img 元素并设置 alt 属性
-                images.forEach((img, index) => {
-                    img.alt = formatIndex(index); // 使用格式化后的 alt 值
-                });
-                console.log("背景图转img完成……")
-            }
+        $("*").each(function () {
+            convertBgToImg(this);
         });
+        $("img").each(function (index) {
+            this.alt = index + 1;
+        });
+        console.log("背景图转img完成……");
     }
 
     $(".zhutux").each((index, img) => {
@@ -190,4 +166,4 @@ function rename() {
     });
 }
 export { rename };
-// End-193-2025.12.13.135525
+// End-169-2025.12.15.093311
