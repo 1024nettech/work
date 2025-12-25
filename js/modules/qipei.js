@@ -529,6 +529,7 @@ function xiangqingtu_upload() {
         images.each(function () {
             var imgSrc = $(this).attr('src').trim();
             if (imgSrc && !imgSrc.includes('aimg8.dlssyht.cn')) {
+                console.log(imgSrc);
                 hasInvalidImages = true;
                 // 为无效图片添加跑马灯彩条效果
                 $(this).css({
@@ -548,4 +549,4 @@ function xiangqingtu_upload() {
     });
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-551-2025.12.25.111848
+// End-552-2025.12.25.112138
