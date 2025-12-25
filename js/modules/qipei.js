@@ -523,7 +523,7 @@ function xiangqingtu_upload() {
     $('#submit_msg a').on('click', function () {
 
         var iframe = $('#ueditor_0').contents();
-        var images = iframe.find('img');
+        var images = iframe.find('img:not(.edui-upload-video.vjs-default-skin)');
         var hasInvalidImages = false;
 
         images.each(function () {
@@ -548,4 +548,4 @@ function xiangqingtu_upload() {
     });
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-551-2025.12.15.154031
+// End-551-2025.12.25.111848
