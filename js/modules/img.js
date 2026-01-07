@@ -31,30 +31,7 @@ function rename() {
             });
         });
     }
-    if (url.includes("https://b2b.baidu.com/land?url=")) {
-        $('.thumb-item .img').each(function () {
-            let $this = $(this);
-            let backgroundImage = $this.css('background-image');
-            if (backgroundImage && backgroundImage !== 'none') {
-                backgroundImage = backgroundImage.replace(/&fmt=auto\?/, "&fmt=JPEG?");
-                let imageUrlMatch = backgroundImage.match(/url\(["']?(.*?)["']?\)/);
-                if (imageUrlMatch && imageUrlMatch[1]) {
-                    let imageUrl = imageUrlMatch[1];
-                    let $img = $('<img>', {
-                        src: imageUrl,
-                        class: 'zhutux',
-                        style: 'display: none;',
-                    });
-                    $this.empty();
-                    $this.append($img);
-                }
-            }
-        });
-        $('.rich-text img').each(function () {
-            $(this).addClass('xiangqingtux');
-        });
-    }
-    else if (url.includes("https://detail.1688.com/offer/")) {
+    if (url.includes("https://detail.1688.com/offer/")) {
         if (url.includes("version=0")) {
             // 旧版页面
 
@@ -164,6 +141,34 @@ function rename() {
             img.src = img.src.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1];
         }).addClass("xiangqingtux");
     }
+    else if (url.includes("https://b2b.baidu.com/land?url=")) {
+        let html = `${$(".prod-desc-title").text().trim()}|@@|${$(".prod-desc-title").text().trim()}|@@|${$(".price-wrap").text().split("￥")[1].trim()}|@@|件|@@|${parseInt($(".prod-desc-basic .quantity-new").text().trim())}|@@|10000|@@|${$(".rich-text").html()}`;
+        copyToClipboard(".details-title div:contains(商品描述)", html);
+        // 主图修改：修改 .thumb-item .img 的背景图片添加img, 并添加类名
+        $('.thumb-item .img').each(function () {
+            let $this = $(this);
+            let backgroundImage = $this.css('background-image');
+            if (backgroundImage && backgroundImage !== 'none') {
+                backgroundImage = backgroundImage.replace(/&fmt=auto\?/, "&fmt=JPEG?");
+                let imageUrlMatch = backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+                if (imageUrlMatch && imageUrlMatch[1]) {
+                    let imageUrl = imageUrlMatch[1];
+                    let $img = $('<img>', {
+                        src: imageUrl,
+                        class: 'zhutux',
+                        style: 'display: none;',
+                    });
+                    $this.empty();
+                    $this.append($img);
+                }
+            }
+        });
+
+        // 详情图修改：修改 .rich-text img 的图片, 添加类名
+        $('.rich-text img').each(function () {
+            $(this).addClass('xiangqingtux');
+        });
+    }
     else {
         // 其他网站, 背景图转img
         $("*").each(function () {
@@ -195,4 +200,4 @@ function rename() {
     });
 }
 export { rename };
-// End-198-2026.01.07.100224
+// End-203-2026.01.07.111147
