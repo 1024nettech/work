@@ -267,16 +267,18 @@ function rename() {
         }).addClass("xiangqingtux");
     }
     else {
-        // 其他网站, 背景图转img
-        $("*").each(function () {
-            convertBgToImg(this);
-        });
-        if (!url.includes("sc_product.php")) {
-            $("img").each(function (index) {
-                this.alt = index + 1;
+        if (!url.includes("https://b2b.baidu.com/land?url=")) {
+            // 其他网站, 背景图转img
+            $("*").each(function () {
+                convertBgToImg(this);
             });
+            if (!url.includes("sc_product.php")) {
+                $("img").each(function (index) {
+                    this.alt = index + 1;
+                });
+            }
+            console.log("背景图转img完成……");
         }
-        console.log("背景图转img完成……");
     }
     $(".zhutux").each((index, img) => {
         let indexWithZero = index + 1 < 10 ? `0${index + 1}` : index + 1;
@@ -297,4 +299,4 @@ function rename() {
     });
 }
 export { rename };
-// End-300-2026.01.07.085254
+// End-302-2026.01.07.085743
