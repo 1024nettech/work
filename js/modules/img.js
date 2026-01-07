@@ -143,7 +143,7 @@ function rename() {
     }
     else if (url.includes("https://b2b.baidu.com/land?url=")) {
         let html = `${$(".prod-desc-title").text().trim()}|@@|${$(".prod-desc-title").text().trim()}|@@|${$(".price-wrap").text().split("￥")[1].trim()}|@@|件|@@|${parseInt($(".prod-desc-basic .quantity-new").text().trim())}|@@|10000|@@|${$(".rich-text").html()}`;
-        copyToClipboard(".details-title div:contains(商品描述)", html);
+        copyToClipboard(".custom-tabs-item.selected", html);
         // 主图修改：修改 .thumb-item .img 的背景图片添加img, 并添加类名
         $('.thumb-item .img').each(function () {
             let $this = $(this);
@@ -200,4 +200,4 @@ function rename() {
     });
 }
 export { rename };
-// End-203-2026.01.07.111147
+// End-203-2026.01.07.111846
