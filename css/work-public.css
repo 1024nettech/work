@@ -7,6 +7,17 @@
     cursor: pointer;
 }
 
+#downloadVideoButton_aicaigou {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+    color: white;
+    padding: 5px 10px;
+    background-color: #EF1F1F;
+    z-index: 10000;
+}
+
 #batch_upload input[type="button"] {
     width: 100px;
     height: 26px;
@@ -62,4 +73,4 @@
 }
 
 /*——————————————————————————————————————————————————draw.io绘图 End——————————————————————————————————————————————————*/
-/* End-65-2025.11.29.112308 */
+/* End-76-2026.01.07.102726 */
