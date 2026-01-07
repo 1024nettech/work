@@ -32,6 +32,46 @@ function rename() {
         });
     }
     if (url.includes("https://b2b.baidu.com/land?url=")) {
+
+        // 直接使用 jQuery 来修改 .thumb-item .img 和 .rich-text 中的 img 元素
+        // Step 1: 遍历 .thumb-item .img 元素，将背景图像替换为 img 元素
+        $('.thumb-item .img').each(function () {
+            let $this = $(this);
+            let backgroundImage = $this.css('background-image');
+
+            if (backgroundImage && backgroundImage !== 'none') {
+                // 如果是百度的爱采购主图，替换背景图像的 URL
+                backgroundImage = backgroundImage.replace(/&fmt=auto\?/, "&fmt=JPEG?");
+
+                // 提取背景图像的 URL
+                let imageUrlMatch = backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+                if (imageUrlMatch && imageUrlMatch[1]) {
+                    let imageUrl = imageUrlMatch[1];
+
+                    // 创建一个新的 img 元素
+                    let $img = $('<img>', {
+                        src: imageUrl,
+                        class: 'zhutux',
+                        style: 'display: none;',
+                    });
+
+                    // 清空 .thumb-item .img 的 HTML
+                    $this.empty();
+
+                    // 将 img 元素添加为 .thumb-item .img 的子元素
+                    $this.append($img);
+                }
+            }
+        });
+
+        // Step 2: 修改 .rich-text 中的 img 元素，添加 .xiangqingtux 类
+        $('.rich-text img').each(function () {
+            $(this).addClass('xiangqingtux');
+        });
+    }
+    if (url.includes("https://b2b.baidu.com/land?url=99666")) {
+
+
         const addedImages = new Set();
         // 将背景图转换为 img 元素的函数
         function convertBgToImg0(element) {
@@ -104,11 +144,6 @@ function rename() {
                         window.open(video.src);
                     });
                 }
-            }
-            // 修改页面标题
-            let pageTitle = document.querySelector("title");
-            if (pageTitle) {
-                pageTitle.textContent = publics.generateTimestamp(1) + "-" + pageTitle.textContent;
             }
         }
         document.addEventListener("mouseleave", function () {
@@ -299,4 +334,4 @@ function rename() {
     });
 }
 export { rename };
-// End-302-2026.01.07.091657
+// End-337-2026.01.07.095256
