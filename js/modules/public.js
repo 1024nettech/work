@@ -256,7 +256,7 @@ function getUrlParameter(url, paramName) {
     }
     return paramValue;
 }
-function downloadVideo(videoUrl, fileName) {
+function downloadVideo0(videoUrl, fileName) {
     // 下载视频
     fetch(videoUrl)
         .then(response => response.blob())
@@ -271,6 +271,48 @@ function downloadVideo(videoUrl, fileName) {
             URL.revokeObjectURL(url);
         })
         .catch(error => console.error("下载失败:", error));
+}
+function downloadVideo(videoUrl, fileName) {
+    // 尝试使用 fetch 进行下载
+    fetch(videoUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error("使用 fetch 下载失败，尝试 GM_xmlhttpRequest:", error);
+            // 如果 fetch 失败（可能是因为跨域等问题），使用 GM_xmlhttpRequest 进行下载
+            if (typeof GM_xmlhttpRequest !== "undefined") {
+                GM_xmlhttpRequest({
+                    method: "GET",
+                    url: videoUrl,
+                    responseType: "arraybuffer", // 获取二进制数据
+                    onload: function (response) {
+                        const blob = new Blob([response.response], { type: "video/mp4" });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    },
+                    onerror: function (error) {
+                        console.error("GM_xmlhttpRequest 下载失败: ", error);
+                    }
+                });
+            } else {
+                console.error("无法使用 GM_xmlhttpRequest 进行下载，因为未在用户脚本环境中运行。");
+            }
+        });
 }
 function addDownloadButton(videoSelector, parentSelector, buttonId) {
     // 添加下载视频按钮
@@ -323,4 +365,4 @@ function copyTextOnClick(selector) {
     });
 }
 export { sendRequest, loadFiles, generateTimestamp, sliceImage, takeScreenshots, clearAll, setAndLog, getAndLog, waitfor, parseJson, getUrlParameter, addDownloadButton, onKeyUp, copyTextOnClick }
-// End-326-2025.11.26.130038
+// End-368-2026.01.07.103410
