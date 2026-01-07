@@ -70,16 +70,18 @@ function rename() {
             }).addClass("guigetux");
 
             // 详情图修改：修改 .html-description shadowRoot 的图片, 添加类名
-            let $shadowHost = $(".html-description");
-            let shadowRoot = $shadowHost[0].shadowRoot;
-            let $detailElement = $(shadowRoot).find("#detail");
-            $(".xiangqingtux").remove();
-            $detailElement.find("img").each((index, img) => {
-                let $newImg = $("<img>").attr("src", img.src)
-                    .addClass("xiangqingtux")
-                    .css("display", "none");
-                $("body").append($newImg);
-            });
+            if ($(".html-description").length) {
+                let $shadowHost = $(".html-description");
+                let shadowRoot = $shadowHost[0].shadowRoot;
+                let $detailElement = $(shadowRoot).find("#detail");
+                $(".xiangqingtux").remove();
+                $detailElement.find("img").each((index, img) => {
+                    let $newImg = $("<img>").attr("src", img.src)
+                        .addClass("xiangqingtux")
+                        .css("display", "none");
+                    $("body").append($newImg);
+                });
+            }
             $(".od-pc-detail-description img").each((index, img) => {
                 img.src = img.src.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1];
             }).addClass("xiangqingtux");
@@ -171,4 +173,4 @@ function rename() {
     });
 }
 export { rename };
-// End-174-2026.01.07.082437
+// End-176-2026.01.07.083747
