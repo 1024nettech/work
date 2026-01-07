@@ -239,13 +239,16 @@ async function main() {
             });
         }
     }
-    if (url.includes("https://detail.1688.com/offer/") || url.includes("https://detail.tmall.com/item.htm") || url.includes("https://item.taobao.com/item.htm") || url.includes("https://item.jd.com/")) {
+    if (url.includes("https://detail.1688.com/offer/") || url.includes("https://detail.tmall.com/item.htm") || url.includes("https://item.taobao.com/item.htm") || url.includes("https://item.jd.com/") || url.includes("https://b2b.baidu.com/land?url=")) {
         $(document).on("mouseleave", "body", function () {
             img.rename();
         });
     }
     if (url.includes("https://detail.tmall.com/item.htm") || url.includes("https://item.taobao.com/item.htm")) {
         publics.addDownloadButton("#mainPicVideoEl video", ".videox-progress-container", "downloadVideoButton_tb");
+    }
+    if (url.includes("https://b2b.baidu.com/land?url=")) {
+        publics.addDownloadButton(".video-container video", ".video-container", "downloadVideoButton_aicaigou");
     }
     if (url.includes("https://detail.1688.com/offer/")) {
         publics.copyTextOnClick();
@@ -273,4 +276,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-276-2025.12.15.100411
+// End-279-2026.01.07.101811
