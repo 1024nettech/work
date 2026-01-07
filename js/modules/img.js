@@ -10,7 +10,7 @@ function rename() {
             if (urlMatch && urlMatch[1]) {
                 let imageUrl = urlMatch[1];
                 let img = document.createElement("img");
-                img.src = imageUrl.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1] + '#1024down';
+                img.src = imageUrl.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1] + "#1024down";
                 img.style.display = "none";
                 element.parentNode.insertBefore(img, element.nextSibling);
             }
@@ -128,8 +128,8 @@ function rename() {
                 thumbItemImages.forEach(function (imgElement, index) {
                     imgElement.alt = `导读图-${formatIndex(index)}`; // 使用格式化后的 alt 值
                     let imgSrc = imgElement.src;
-                    if (!imgSrc.endsWith("#1024")) {
-                        imgElement.src = imgSrc + "#1024";
+                    if (!imgSrc.endsWith("#1024down")) {
+                        imgElement.src = imgSrc + "#1024down";
                     }
                 });
                 // 4. 修改 .questionable-detail 中的 img, alt 赋值为“详情图-01”、“详情图-02”等
@@ -137,8 +137,8 @@ function rename() {
                 questionableDetailImages.forEach(function (imgElement, index) {
                     imgElement.alt = `详情图-${formatIndex(index)}`; // 使用格式化后的 alt 值
                     let imgSrc = imgElement.src;
-                    if (!imgSrc.endsWith("#1024")) {
-                        imgElement.src = imgSrc + "#1024";
+                    if (!imgSrc.endsWith("#1024down")) {
+                        imgElement.src = imgSrc + "#1024down";
                     }
                 });
             } else {
@@ -299,4 +299,4 @@ function rename() {
     });
 }
 export { rename };
-// End-302-2026.01.07.085743
+// End-302-2026.01.07.091240
