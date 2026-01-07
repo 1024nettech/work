@@ -256,22 +256,6 @@ function getUrlParameter(url, paramName) {
     }
     return paramValue;
 }
-function downloadVideo0(videoUrl, fileName) {
-    // 下载视频
-    fetch(videoUrl)
-        .then(response => response.blob())
-        .then(blob => {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        })
-        .catch(error => console.error("下载失败:", error));
-}
 function downloadVideo(videoUrl, fileName) {
     // 尝试使用 fetch 进行下载
     fetch(videoUrl)
@@ -293,7 +277,7 @@ function downloadVideo(videoUrl, fileName) {
                 GM_xmlhttpRequest({
                     method: "GET",
                     url: videoUrl,
-                    responseType: "arraybuffer", // 获取二进制数据
+                    responseType: "arraybuffer",
                     onload: function (response) {
                         const blob = new Blob([response.response], { type: "video/mp4" });
                         const url = URL.createObjectURL(blob);
@@ -365,4 +349,4 @@ function copyTextOnClick(selector) {
     });
 }
 export { sendRequest, loadFiles, generateTimestamp, sliceImage, takeScreenshots, clearAll, setAndLog, getAndLog, waitfor, parseJson, getUrlParameter, addDownloadButton, onKeyUp, copyTextOnClick }
-// End-368-2026.01.07.103410
+// End-352-2026.01.07.104003
