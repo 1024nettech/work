@@ -58,7 +58,7 @@ function rename() {
             // 新版页面
 
             // 主图修改：修改 .detail-gallery-img 的图片, 添加类名
-            $(".od-gallery-img:not(.video-icon + .od-gallery-img)").each((index, img) => {
+            $(".od-gallery-img:not(.video-icon + .od-gallery-img), .detail-gallery-img").each((index, img) => {
                 // img.src = img.src.split("_.webp")[0].split("_b")[0];
                 img.src = img.src.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1];
             }).addClass("zhutux");
@@ -80,6 +80,9 @@ function rename() {
                     .css("display", "none");
                 $("body").append($newImg);
             });
+            $(".od-pc-detail-description img").each((index, img) => {
+                img.src = img.src.match(/^([^\s]+?\.(jpg|jpeg|png|gif|bmp|webp))/i)[1];
+            }).addClass("xiangqingtux");
         }
     }
     else if (url.includes("https://detail.tmall.com/item.htm") || url.includes("https://item.taobao.com/item.htm")) {
@@ -168,4 +171,4 @@ function rename() {
     });
 }
 export { rename };
-// End-171-2025.12.15.160133
+// End-174-2026.01.07.082437
