@@ -132,8 +132,8 @@ function rename() {
                         imgElement.src = imgSrc + "#1024down";
                     }
                 });
-                // 4. 修改 .questionable-detail 中的 img, alt 赋值为“详情图-01”、“详情图-02”等
-                let questionableDetailImages = document.querySelectorAll(".questionable-detail img");
+                // 4. 修改 .rich-text 中的 img, alt 赋值为“详情图-01”、“详情图-02”等
+                let questionableDetailImages = document.querySelectorAll(".rich-text img");
                 questionableDetailImages.forEach(function (imgElement, index) {
                     imgElement.alt = `详情图-${formatIndex(index)}`; // 使用格式化后的 alt 值
                     let imgSrc = imgElement.src;
@@ -299,4 +299,4 @@ function rename() {
     });
 }
 export { rename };
-// End-302-2026.01.07.091240
+// End-302-2026.01.07.091657
