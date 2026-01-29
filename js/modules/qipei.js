@@ -573,9 +573,11 @@ function auto_city() {
         });
         // 系统分类
         $(document).on('change', '#big_id', async function () {
-            const big_id = $('#big_id').val();
-            await set('big_id', big_id);
-            console.log("大类", big_id);
+            setTimeout(async () => {
+                const big_id = $('#big_id').val();
+                await set('big_id', big_id);
+                console.log("大类", big_id);
+            }, 100);
         });
         get('big_id').then(big_id => {
             console.log("系统分类", big_id);
