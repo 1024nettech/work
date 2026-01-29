@@ -551,7 +551,11 @@ function xiangqingtu_upload() {
 }
 function auto_city() {
     if (url.includes('shops_info.php')) {
-        $('#submit_btn').on('mousedown', async function () {
+        // $('#submit_btn').on('mousedown', async function () {
+        //     const city = $('#city label').text();
+        //     await set('city', city);
+        // });
+        $('#city').on('change', async function () {
             const city = $('#city label').text();
             await set('city', city);
         });
