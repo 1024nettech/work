@@ -562,7 +562,9 @@ function auto_city() {
                 #submit_msg {
                     position: fixed !important;
                     right: 250px;
-                    top: 50%;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
                 }
             </style>
             `;
@@ -664,4 +666,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-667-2026.01.29.105946
+// End-669-2026.01.29.110956
