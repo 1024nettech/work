@@ -577,6 +577,7 @@ function auto_city() {
             await set('big_id', big_id);
         });
         get('big_id').then(big_id => {
+            console.log("系统分类", big_id);
             if (big_id) {
                 setInterval(() => {
                     if ($('#big_id').length) {
@@ -591,6 +592,7 @@ function auto_city() {
             await set('shop_pro_class_big_id', shop_pro_class_big_id);
         });
         get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
+            console.log("自定义分类-大类", shop_pro_class_big_id);
             if (shop_pro_class_big_id) {
                 setInterval(() => {
                     if ($('#shop_pro_class_big_id').length) {
@@ -605,6 +607,7 @@ function auto_city() {
             await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
         });
         get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
+            console.log("自定义分类-小类", shop_pro_class_sub_id);
             if (shop_pro_class_sub_id) {
                 setInterval(() => {
                     if ($('#shop_pro_class_sub_id').length) {
@@ -619,12 +622,14 @@ function auto_city() {
             await set('selectedValue', selectedValue);
         });
         get('selectedValue').then(selectedValue => {
+            console.log("服务专区", selectedValue);
             if (selectedValue) {
                 $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
             }
         });
         // 城市
         get('city').then(city => {
+            console.log("城市", city);
             if (city) {
                 $('#citycode').val($(`#citycode option:contains(${city})`).val());
             }
