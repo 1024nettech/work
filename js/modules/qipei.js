@@ -571,13 +571,62 @@ function auto_city() {
             const pronameValue = $(this).val();
             $('#keywords').val(pronameValue);
         });
+        // 系统分类
+        $('#big_id').on('change', async function () {
+            const big_id = $('#big_id').val();
+            await set('big_id', big_id);
+        });
+        get('big_id').then(big_id => {
+            if (big_id) {
+                setInterval(() => {
+                    if ($('#big_id').length) {
+                        $('#big_id').val($(`#big_id option:contains(${big_id})`).val());
+                    }
+                }, 100);
+            }
+        });
+        // 自定义分类-大类
+        $('#shop_pro_class_big_id').on('change', async function () {
+            const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
+            await set('shop_pro_class_big_id', shop_pro_class_big_id);
+        });
+        get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
+            if (shop_pro_class_big_id) {
+                setInterval(() => {
+                    if ($('#shop_pro_class_big_id').length) {
+                        $('#shop_pro_class_big_id').val($(`#shop_pro_class_big_id option:contains(${shop_pro_class_big_id})`).val());
+                    }
+                }, 100);
+            }
+        });
+        // 自定义分类-小类
+        $('#shop_pro_class_sub_id').on('change', async function () {
+            const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
+            await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
+        });
+        get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
+            if (shop_pro_class_sub_id) {
+                setInterval(() => {
+                    if ($('#shop_pro_class_sub_id').length) {
+                        $('#shop_pro_class_sub_id').val($(`#shop_pro_class_sub_id option:contains(${shop_pro_class_sub_id})`).val());
+                    }
+                }, 100);
+            }
+        });
+        // 服务专区
+        $('input[name="exclusive_model"]').on('change', async function () {
+            const selectedValue = $('input[name="exclusive_model"]:checked').val();
+            await set('selectedValue', selectedValue);
+        });
+        get('selectedValue').then(selectedValue => {
+            if (selectedValue) {
+                $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
+            }
+        });
+        // 城市
         get('city').then(city => {
             if (city) {
-                $('#citycode option').each(function () {
-                    if ($(this).text().includes(city)) {
-                        $(this).prop('selected', true);
-                    }
-                });
+                $('#citycode').val($(`#citycode option:contains(${city})`).val());
             }
         });
         $('#submit_msg').on('mousedown', function () {
@@ -595,4 +644,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-598-2026.01.29.091249
+// End-647-2026.01.29.100154
