@@ -557,6 +557,16 @@ function auto_city() {
         });
     }
     else if (url.includes('sc_product.php')) {
+        let css = `
+            <style>
+                #submit_msg {
+                    position: fixed !important;
+                    right: 250px;
+                    top: 50%;
+                }
+            </style>
+            `;
+        $("body").append(css);
         $('#proname').on('input', function () {
             const pronameValue = $(this).val();
             $('#keywords').val(pronameValue);
@@ -585,4 +595,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-588-2026.01.29.090705
+// End-598-2026.01.29.091249
