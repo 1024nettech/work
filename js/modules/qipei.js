@@ -572,7 +572,7 @@ function auto_city() {
             $('#keywords').val(pronameValue);
         });
         // 系统分类
-        $('#big_id').on('change', async function () {
+        $(document).on('change', '#big_id', async function () {
             const big_id = $('#big_id').val();
             await set('big_id', big_id);
         });
@@ -587,7 +587,7 @@ function auto_city() {
             }
         });
         // 自定义分类-大类
-        $('#shop_pro_class_big_id').on('change', async function () {
+        $(document).on('change', '#shop_pro_class_big_id', async function () {
             const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
             await set('shop_pro_class_big_id', shop_pro_class_big_id);
         });
@@ -602,7 +602,7 @@ function auto_city() {
             }
         });
         // 自定义分类-小类
-        $('#shop_pro_class_sub_id').on('change', async function () {
+        $(document).on('change', '#shop_pro_class_sub_id', async function () {
             const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
             await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
         });
