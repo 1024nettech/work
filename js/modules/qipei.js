@@ -575,6 +575,7 @@ function auto_city() {
         $(document).on('change', '#big_id', async function () {
             const big_id = $('#big_id').val();
             await set('big_id', big_id);
+            console.log("大类", big_id);
         });
         get('big_id').then(big_id => {
             console.log("系统分类", big_id);
