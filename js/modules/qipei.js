@@ -551,12 +551,8 @@ function xiangqingtu_upload() {
 }
 function auto_city() {
     if (url.includes('shops_info.php')) {
-        // $('#submit_btn').on('mousedown', async function () {
-        //     const city = $('#city label').text();
-        //     await set('city', city);
-        // });
         $('#city').on('change', async function () {
-            const city = $('#city label').text();
+            const city = $('#city').val();
             await set('city', city);
         });
     }
@@ -589,4 +585,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-588-2026.01.29.084500
+// End-588-2026.01.29.090705
