@@ -573,11 +573,13 @@ function auto_city() {
         });
         // 系统分类
         $(document).on('change', '#big_id', async function () {
-            setTimeout(async () => {
+            setInterval(async () => {
                 const big_id = $('#big_id').val();
-                await set('big_id', big_id);
-                console.log("大类", big_id);
-            }, 10000);
+                if (big_id) {
+                    await set('big_id', big_id);
+                    console.log("系统分类", big_id);
+                }
+            }, 100);
         });
         get('big_id').then(big_id => {
             console.log("系统分类", big_id);
@@ -591,8 +593,13 @@ function auto_city() {
         });
         // 自定义分类-大类
         $(document).on('change', '#shop_pro_class_big_id', async function () {
-            const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
-            await set('shop_pro_class_big_id', shop_pro_class_big_id);
+            setInterval(async () => {
+                const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
+                if (shop_pro_class_big_id) {
+                    await set('shop_pro_class_big_id', shop_pro_class_big_id);
+                    console.log("自定义分类-大类", shop_pro_class_big_id);
+                }
+            }, 100);
         });
         get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
             console.log("自定义分类-大类", shop_pro_class_big_id);
@@ -606,8 +613,13 @@ function auto_city() {
         });
         // 自定义分类-小类
         $(document).on('change', '#shop_pro_class_sub_id', async function () {
-            const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
-            await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
+            setInterval(async () => {
+                const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
+                if (shop_pro_class_sub_id) {
+                    await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
+                    console.log("自定义分类-小类", shop_pro_class_sub_id);
+                }
+            }, 100);
         });
         get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
             console.log("自定义分类-小类", shop_pro_class_sub_id);
@@ -652,4 +664,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-647-2026.01.29.100154
+// End-667-2026.01.29.104420
