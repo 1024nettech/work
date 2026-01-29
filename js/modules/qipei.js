@@ -549,5 +549,40 @@ function xiangqingtu_upload() {
         }
     });
 }
-export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload }
-// End-553-2026.01.07.113555
+function auto_city() {
+    if (url.includes('shops_info.php')) {
+        $('#submit_btn').on('mousedown', async function () {
+            const city = $('#city label').text();
+            await set('city', city);
+        });
+    }
+    else if (url.includes('sc_product.php')) {
+        $('#proname').on('input', function () {
+            const pronameValue = $(this).val();
+            $('#keywords').val(pronameValue);
+        });
+        get('city').then(city => {
+            if (city) {
+                $('#citycode option').each(function () {
+                    if ($(this).text().includes(city)) {
+                        $(this).prop('selected', true);
+                    }
+                });
+            }
+        });
+        $('#submit_msg').on('mousedown', function () {
+            let imagesHtml = '';
+            let title = $("#proname").val();
+            for (let i = 1; i <= 8; i++) {
+                const img = $(`#propic${i} img`);
+                if (img.length) {
+                    const src = img.attr('src').split('?')[0];
+                    imagesHtml += `<p><img src="${src}" title="${title}" alt="${title}" /></p>`;
+                }
+            }
+            $("#ueditor_0").contents().find("body").html(imagesHtml);
+        });
+    }
+}
+export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
+// End-588-2026.01.29.084500
