@@ -188,7 +188,8 @@ async function main() {
                 });
             }
         }
-        if (url.includes("sc_product.php")) {
+        if (url.includes("shops_info.php") || url.includes("sc_product.php")) {
+            qipei.auto_city();
             // 商品发布页面
             $("body").append(`
                 <style>
@@ -276,4 +277,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-279-2026.01.07.101811
+// End-280-2026.01.29.084906
