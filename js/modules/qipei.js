@@ -635,8 +635,11 @@ function auto_city() {
         // });
         // 服务专区
         $('input[name="exclusive_model"]').on('change', async function () {
-            const selectedValue = $('input[name="exclusive_model"]:checked').val();
-            await set('selectedValue', selectedValue);
+            setTimeout(async () => {
+                const selectedValue = $('input[name="exclusive_model"]:checked').val();
+                console.log(selectedValue);
+                await set('selectedValue', selectedValue);
+            }, 1000);
         });
         get('selectedValue').then(selectedValue => {
             console.log("服务专区", selectedValue);
