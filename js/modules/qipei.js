@@ -612,6 +612,7 @@ function auto_city() {
                 let t = setInterval(() => {
                     if ($('#shop_pro_class_big_id').length) {
                         $('#shop_pro_class_big_id').val(`${shop_pro_class_big_id}`);
+                        $("#shop_pro_class_big_id").change();
                         clearInterval(t);
                     }
                 }, 100);
@@ -634,6 +635,7 @@ function auto_city() {
                 let t = setInterval(() => {
                     if ($('#shop_pro_class_sub_id').length) {
                         $('#shop_pro_class_sub_id').val(`${shop_pro_class_sub_id}`);
+                        $("#shop_pro_class_sub_id").change();
                         clearInterval(t);
                     }
                 }, 100);
@@ -675,4 +677,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-669-2026.01.29.110956
+// End-680-2026.01.31.160930
