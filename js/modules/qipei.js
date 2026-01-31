@@ -574,25 +574,27 @@ function auto_city() {
             $('#keywords').val(pronameValue);
         });
         // // 系统分类
-        // $(document).on('change', '#big_id', async function () {
-        //     setInterval(async () => {
-        //         const big_id = $('#big_id').val();
-        //         if (big_id) {
-        //             await set('big_id', big_id);
-        //             console.log("系统分类", big_id);
-        //         }
-        //     }, 100);
-        // });
-        // get('big_id').then(big_id => {
-        //     console.log("系统分类", big_id);
-        //     if (big_id) {
-        //         setInterval(() => {
-        //             if ($('#big_id').length) {
-        //                 $('#big_id').val($(`#big_id option:contains(${big_id})`).val());
-        //             }
-        //         }, 100);
-        //     }
-        // });
+        $(document).on('change', '#big_id', async function () {
+            let t = setInterval(async () => {
+                const big_id = $('#big_id').val();
+                if (big_id) {
+                    await set('big_id', big_id);
+                    console.log("系统分类", big_id);
+                    clearInterval(t);
+                }
+            }, 100);
+        });
+        get('big_id').then(big_id => {
+            console.log("系统分类", big_id);
+            if (big_id) {
+                let t = setInterval(() => {
+                    if ($('#big_id').length) {
+                        $('#big_id').val($(`#big_id option:contains(${big_id})`).val());
+                        clearInterval(t);
+                    }
+                }, 100);
+            }
+        });
         // // 自定义分类-大类
         // $(document).on('change', '#shop_pro_class_big_id', async function () {
         //     setInterval(async () => {
@@ -637,9 +639,9 @@ function auto_city() {
         $('input[name="exclusive_model"]').on('change', async function () {
             setTimeout(async () => {
                 const selectedValue = $('input[name="exclusive_model"]:checked').val();
-                console.log(selectedValue);
+                // console.log(selectedValue);
                 await set('selectedValue', selectedValue);
-            }, 1000);
+            }, 100);
         });
         get('selectedValue').then(selectedValue => {
             console.log("服务专区", selectedValue);
