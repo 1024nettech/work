@@ -634,16 +634,16 @@ function auto_city() {
         //     }
         // });
         // 服务专区
-        // $('input[name="exclusive_model"]').on('change', async function () {
-        //     const selectedValue = $('input[name="exclusive_model"]:checked').val();
-        //     await set('selectedValue', selectedValue);
-        // });
-        // get('selectedValue').then(selectedValue => {
-        //     console.log("服务专区", selectedValue);
-        //     if (selectedValue) {
-        //         $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
-        //     }
-        // });
+        $('input[name="exclusive_model"]').on('change', async function () {
+            const selectedValue = $('input[name="exclusive_model"]:checked').val();
+            await set('selectedValue', selectedValue);
+        });
+        get('selectedValue').then(selectedValue => {
+            console.log("服务专区", selectedValue);
+            if (selectedValue) {
+                $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
+            }
+        });
         // 城市
         get('city').then(city => {
             console.log("城市", city);
