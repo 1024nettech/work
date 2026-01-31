@@ -556,7 +556,7 @@ function auto_city() {
             await set('city', city);
         });
     }
-    else if (url.includes('sc_product.php')) {
+    else if (url.includes('sc_product.php') && !url.includes("&id=")) {
         let css = `
             <style>
                 #submit_msg {
@@ -569,114 +569,112 @@ function auto_city() {
             </style>
             `;
         $("body").append(css);
-        if (!url.includes("&id=")) {
-            $('#proname').on('input', function () {
-                const pronameValue = $(this).val();
-                $('#keywords').val(pronameValue);
-            });
-            // 系统分类
-            $(document).on('change', '#big_id', async function () {
-                let t = setInterval(async () => {
-                    const big_id = $('#big_id').val();
-                    if (big_id) {
-                        await set('big_id', big_id);
-                        console.log("系统分类", big_id);
-                        clearInterval(t);
-                    }
-                }, 100);
-            });
-            get('big_id').then(big_id => {
-                console.log("系统分类", big_id);
+        $('#proname').on('input', function () {
+            const pronameValue = $(this).val();
+            $('#keywords').val(pronameValue);
+        });
+        // 系统分类
+        $(document).on('change', '#big_id', async function () {
+            let t = setInterval(async () => {
+                const big_id = $('#big_id').val();
                 if (big_id) {
-                    let t = setInterval(() => {
-                        if ($('#big_id').length) {
-                            $('#big_id').val(`${big_id}`);
-                            clearInterval(t);
-                        }
-                    }, 100);
+                    await set('big_id', big_id);
+                    console.log("系统分类", big_id);
+                    clearInterval(t);
                 }
-            });
-            // 自定义分类-大类
-            $(document).on('change', '#shop_pro_class_big_id', async function () {
-                let t = setInterval(async () => {
-                    const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
-                    if (shop_pro_class_big_id) {
-                        await set('shop_pro_class_big_id', shop_pro_class_big_id);
-                        console.log("自定义分类-大类", shop_pro_class_big_id);
+            }, 100);
+        });
+        get('big_id').then(big_id => {
+            console.log("系统分类", big_id);
+            if (big_id) {
+                let t = setInterval(() => {
+                    if ($('#big_id').length) {
+                        $('#big_id').val(`${big_id}`);
                         clearInterval(t);
                     }
                 }, 100);
-            });
-            get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
-                console.log("自定义分类-大类", shop_pro_class_big_id);
+            }
+        });
+        // 自定义分类-大类
+        $(document).on('change', '#shop_pro_class_big_id', async function () {
+            let t = setInterval(async () => {
+                const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
                 if (shop_pro_class_big_id) {
-                    let t = setInterval(() => {
-                        if ($('#shop_pro_class_big_id').length) {
-                            $('#shop_pro_class_big_id').val(`${shop_pro_class_big_id}`);
-                            $("#shop_pro_class_big_id").change();
-                            clearInterval(t);
-                        }
-                    }, 100);
+                    await set('shop_pro_class_big_id', shop_pro_class_big_id);
+                    console.log("自定义分类-大类", shop_pro_class_big_id);
+                    clearInterval(t);
                 }
-            });
-            // 自定义分类-小类
-            $(document).on('change', '#shop_pro_class_sub_id', async function () {
-                let t = setInterval(async () => {
-                    const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
-                    if (shop_pro_class_sub_id) {
-                        await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
-                        console.log("自定义分类-小类", shop_pro_class_sub_id);
+            }, 100);
+        });
+        get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
+            console.log("自定义分类-大类", shop_pro_class_big_id);
+            if (shop_pro_class_big_id) {
+                let t = setInterval(() => {
+                    if ($('#shop_pro_class_big_id').length) {
+                        $('#shop_pro_class_big_id').val(`${shop_pro_class_big_id}`);
+                        $("#shop_pro_class_big_id").change();
                         clearInterval(t);
                     }
                 }, 100);
-            });
-            get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
-                console.log("自定义分类-小类", shop_pro_class_sub_id);
+            }
+        });
+        // 自定义分类-小类
+        $(document).on('change', '#shop_pro_class_sub_id', async function () {
+            let t = setInterval(async () => {
+                const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
                 if (shop_pro_class_sub_id) {
-                    let t = setInterval(() => {
-                        if ($('#shop_pro_class_sub_id').length) {
-                            $('#shop_pro_class_sub_id').val(`${shop_pro_class_sub_id}`);
-                            $("#shop_pro_class_sub_id").change();
-                            clearInterval(t);
-                        }
-                    }, 100);
+                    await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
+                    console.log("自定义分类-小类", shop_pro_class_sub_id);
+                    clearInterval(t);
                 }
-            });
-            // 服务专区
-            $('input[name="exclusive_model"]').on('change', async function () {
-                setTimeout(async () => {
-                    const selectedValue = $('input[name="exclusive_model"]:checked').val();
-                    // console.log(selectedValue);
-                    await set('selectedValue', selectedValue);
-                }, 100);
-            });
-            get('selectedValue').then(selectedValue => {
-                console.log("服务专区", selectedValue);
-                if (selectedValue) {
-                    $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
-                }
-            });
-            // 城市
-            get('city').then(city => {
-                console.log("城市", city);
-                if (city) {
-                    $('#citycode').val($(`#citycode option:contains(${city})`).val());
-                }
-            });
-            $('#submit_msg').on('mousedown', function () {
-                let imagesHtml = '';
-                let title = $("#proname").val();
-                for (let i = 1; i <= 8; i++) {
-                    const img = $(`#propic${i} img`);
-                    if (img.length) {
-                        const src = img.attr('src').split('?')[0];
-                        imagesHtml += `<p><img src="${src}" title="${title}" alt="${title}" /></p>`;
+            }, 100);
+        });
+        get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
+            console.log("自定义分类-小类", shop_pro_class_sub_id);
+            if (shop_pro_class_sub_id) {
+                let t = setInterval(() => {
+                    if ($('#shop_pro_class_sub_id').length) {
+                        $('#shop_pro_class_sub_id').val(`${shop_pro_class_sub_id}`);
+                        $("#shop_pro_class_sub_id").change();
+                        clearInterval(t);
                     }
+                }, 100);
+            }
+        });
+        // 服务专区
+        $('input[name="exclusive_model"]').on('change', async function () {
+            setTimeout(async () => {
+                const selectedValue = $('input[name="exclusive_model"]:checked').val();
+                // console.log(selectedValue);
+                await set('selectedValue', selectedValue);
+            }, 100);
+        });
+        get('selectedValue').then(selectedValue => {
+            console.log("服务专区", selectedValue);
+            if (selectedValue) {
+                $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
+            }
+        });
+        // 城市
+        get('city').then(city => {
+            console.log("城市", city);
+            if (city) {
+                $('#citycode').val($(`#citycode option:contains(${city})`).val());
+            }
+        });
+        $('#submit_msg').on('mousedown', function () {
+            let imagesHtml = '';
+            let title = $("#proname").val();
+            for (let i = 1; i <= 8; i++) {
+                const img = $(`#propic${i} img`);
+                if (img.length) {
+                    const src = img.attr('src').split('?')[0];
+                    imagesHtml += `<p><img src="${src}" title="${title}" alt="${title}" /></p>`;
                 }
-                $("#ueditor_0").contents().find("body").html(imagesHtml);
-            });
-        }
+            }
+            $("#ueditor_0").contents().find("body").html(imagesHtml);
+        });
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-682-2026.01.31.162023
+// End-680-2026.01.31.162542
