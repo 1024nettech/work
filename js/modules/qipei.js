@@ -589,7 +589,7 @@ function auto_city() {
             if (big_id) {
                 let t = setInterval(() => {
                     if ($('#big_id').length) {
-                        $('#big_id').val($(`#big_id option:contains(${big_id})`).val());
+                        $('#big_id').val($(`#big_id option[value=${big_id}]`).val());
                         clearInterval(t);
                     }
                 }, 100);
