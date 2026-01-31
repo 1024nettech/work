@@ -573,7 +573,7 @@ function auto_city() {
             const pronameValue = $(this).val();
             $('#keywords').val(pronameValue);
         });
-        // // 系统分类
+        // 系统分类
         $(document).on('change', '#big_id', async function () {
             let t = setInterval(async () => {
                 const big_id = $('#big_id').val();
@@ -595,46 +595,50 @@ function auto_city() {
                 }, 100);
             }
         });
-        // // 自定义分类-大类
-        // $(document).on('change', '#shop_pro_class_big_id', async function () {
-        //     setInterval(async () => {
-        //         const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
-        //         if (shop_pro_class_big_id) {
-        //             await set('shop_pro_class_big_id', shop_pro_class_big_id);
-        //             console.log("自定义分类-大类", shop_pro_class_big_id);
-        //         }
-        //     }, 100);
-        // });
-        // get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
-        //     console.log("自定义分类-大类", shop_pro_class_big_id);
-        //     if (shop_pro_class_big_id) {
-        //         setInterval(() => {
-        //             if ($('#shop_pro_class_big_id').length) {
-        //                 $('#shop_pro_class_big_id').val($(`#shop_pro_class_big_id option:contains(${shop_pro_class_big_id})`).val());
-        //             }
-        //         }, 100);
-        //     }
-        // });
-        // // 自定义分类-小类
-        // $(document).on('change', '#shop_pro_class_sub_id', async function () {
-        //     setInterval(async () => {
-        //         const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
-        //         if (shop_pro_class_sub_id) {
-        //             await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
-        //             console.log("自定义分类-小类", shop_pro_class_sub_id);
-        //         }
-        //     }, 100);
-        // });
-        // get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
-        //     console.log("自定义分类-小类", shop_pro_class_sub_id);
-        //     if (shop_pro_class_sub_id) {
-        //         setInterval(() => {
-        //             if ($('#shop_pro_class_sub_id').length) {
-        //                 $('#shop_pro_class_sub_id').val($(`#shop_pro_class_sub_id option:contains(${shop_pro_class_sub_id})`).val());
-        //             }
-        //         }, 100);
-        //     }
-        // });
+        // 自定义分类-大类
+        $(document).on('change', '#shop_pro_class_big_id', async function () {
+            let t = setInterval(async () => {
+                const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
+                if (shop_pro_class_big_id) {
+                    await set('shop_pro_class_big_id', shop_pro_class_big_id);
+                    console.log("自定义分类-大类", shop_pro_class_big_id);
+                    clearInterval(t);
+                }
+            }, 100);
+        });
+        get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
+            console.log("自定义分类-大类", shop_pro_class_big_id);
+            if (shop_pro_class_big_id) {
+                let t = setInterval(() => {
+                    if ($('#shop_pro_class_big_id').length) {
+                        $('#shop_pro_class_big_id').val(`${shop_pro_class_big_id}`);
+                        clearInterval(t);
+                    }
+                }, 100);
+            }
+        });
+        // 自定义分类-小类
+        $(document).on('change', '#shop_pro_class_sub_id', async function () {
+            let t = setInterval(async () => {
+                const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
+                if (shop_pro_class_sub_id) {
+                    await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
+                    console.log("自定义分类-小类", shop_pro_class_sub_id);
+                    clearInterval(t);
+                }
+            }, 100);
+        });
+        get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
+            console.log("自定义分类-小类", shop_pro_class_sub_id);
+            if (shop_pro_class_sub_id) {
+                let t = setInterval(() => {
+                    if ($('#shop_pro_class_sub_id').length) {
+                        $('#shop_pro_class_sub_id').val(`${shop_pro_class_sub_id}`);
+                        clearInterval(t);
+                    }
+                }, 100);
+            }
+        });
         // 服务专区
         $('input[name="exclusive_model"]').on('change', async function () {
             setTimeout(async () => {
