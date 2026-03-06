@@ -297,13 +297,34 @@
             var MIME_TYPE = "image/png";
             var imgURL = canvas.toDataURL(MIME_TYPE);
             var dlLink = document.createElement('a');
-            dlLink.download = "panorama_image.png";
+
+            // 核心修改：生成时间戳并拼接文件名
+            // 获取当前时间对象
+            var now = new Date();
+            // 年（4位）
+            var year = now.getFullYear();
+            // 月（补0到2位）
+            var month = String(now.getMonth() + 1).padStart(2, '0');
+            // 日（补0到2位）
+            var day = String(now.getDate()).padStart(2, '0');
+            // 时（补0到2位）
+            var hour = String(now.getHours()).padStart(2, '0');
+            // 分（补0到2位）
+            var minute = String(now.getMinutes()).padStart(2, '0');
+            // 秒（补0到2位）
+            var second = String(now.getSeconds()).padStart(2, '0');
+            // 拼接时间戳：YYYYMMDDHHmmSS
+            var timeStamp = year + month + day + hour + minute + second;
+            // 最终文件名：时间戳-全景图.png
+            dlLink.download = timeStamp + "-全景图.png";
+
             dlLink.href = imgURL;
             dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
             document.body.appendChild(dlLink);
             dlLink.click();
             document.body.removeChild(dlLink);
         }
+
 
         function set_req_draw() {
             req_draw = true;
