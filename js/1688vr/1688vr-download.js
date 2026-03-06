@@ -9,7 +9,7 @@ let interval = setInterval(() => {
         main();
     }
 }, 100);
-function mian() {
+function main() {
     const url = location.href;
     let html = `
     <button id="button"></button>
@@ -241,5 +241,4 @@ function mian() {
         });
     }
 }
-// End-243-2026.03.06.102656
-
+// End-244-2026.03.06.124850
