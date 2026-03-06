@@ -2,6 +2,7 @@ let script = document.createElement('script');
 script.src = 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/jquery/4.0.0-rc.1/jquery.min.js';
 script.type = 'text/javascript';
 script.async = true;
+document.head.appendChild(script);
 let interval = setInterval(() => {
     if (window.jQuery) {
         clearInterval(interval);
@@ -241,3 +242,4 @@ function mian() {
     }
 }
 // End-243-2026.03.06.102656
+
