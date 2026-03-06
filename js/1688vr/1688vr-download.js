@@ -1,2 +1,201 @@
-function _0x46f1(_0x3f85d0, _0x531a15) { _0x3f85d0 = _0x3f85d0 - 0x1a7; const _0x5b7257 = _0x5b72(); let _0x46f16a = _0x5b7257[_0x3f85d0]; return _0x46f16a; } const _0x38bcf4 = _0x46f1; (function (_0x43c594, _0x534e8f) { const _0x3473a5 = _0x46f1, _0x31a681 = _0x43c594(); while (!![]) { try { const _0x5b86a7 = -parseInt(_0x3473a5(0x1ae)) / 0x1 + parseInt(_0x3473a5(0x1b1)) / 0x2 + parseInt(_0x3473a5(0x1b9)) / 0x3 + parseInt(_0x3473a5(0x1d5)) / 0x4 + parseInt(_0x3473a5(0x1b3)) / 0x5 + parseInt(_0x3473a5(0x1ac)) / 0x6 * (parseInt(_0x3473a5(0x1d7)) / 0x7) + -parseInt(_0x3473a5(0x1ea)) / 0x8; if (_0x5b86a7 === _0x534e8f) break; else _0x31a681['push'](_0x31a681['shift']()); } catch (_0x221fd3) { _0x31a681['push'](_0x31a681['shift']()); } } }(_0x5b72, 0x9c22e)); import _0x6d2fd1 from '../modules/jquery.js'; const url = location[_0x38bcf4(0x1eb)]; function _0x5b72() { const _0x1d97e9 = ['input', 'toLowerCase', '1132258lEMoMj', 'readAsDataURL', '3455100RNMhtR', '成功下载:\x20', 'getItem', '全景图宽度:\x20', 'GM_download', 'height', '2526540oOlhni', 'body', '下载失败:\x20', '#width_0', 'from', '/cubemap/', 'd.jpg', 'target', 'uploadImageup', '#height_0,#height', 'uploadImagefront', 'val', 'push', '-缩略图', 'appendTo', 'onload', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22div\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>全景图宽高</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>宽度:\x20<input\x20id=\x22width_0\x22\x20type=\x22number\x22\x20min=\x221\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>高度:\x20<input\x20id=\x22height_0\x22\x20type=\x22number\x22\x20min=\x221\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<hr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>单面角度调整</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>上面:\x20<input\x20id=\x22up\x22\x20type=\x22number\x22\x20value=\x22180\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>下面:\x20<input\x20id=\x22dowm\x22\x20type=\x22number\x22\x20value=\x22180\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>左面:\x20<input\x20id=\x22left\x22\x20type=\x22number\x22\x20value=\x220\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>右面:\x20<input\x20id=\x22right\x22\x20type=\x22number\x22\x20value=\x220\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>前面:\x20<input\x20id=\x22front\x22\x20type=\x22number\x22\x20value=\x220\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>后面:\x20<input\x20id=\x22back\x22\x20type=\x22number\x22\x20value=\x220\x22></label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20', '.point', 'append', 'trigger', 'src', 'length', 'text', 'f.jpg', 'each', 'change', '#width', '上传\x20Cubemap', '3682320wpZvOo', 'background-image', '1766282TWQazU', '下载全景图', '#button', 'remove', 'forEach', 'includes', 'error', 'https://air.1688.com/pages/vr_viewer/vr_hall/', 'b.jpg', '下载图片:\x0a', 'imageDownloadIndex', 'name', 'files', 'u.jpg', 'uploadImageLeft', '/cubemap_to_panorama_js/cubemap_to_panorama.html', 'split', 'uploadImagedown', '#up_r,#down_r', '20735120IKzjtW', 'href', 'r.jpg', '#width_0,#width', '\x0a\x20\x20\x20\x20<button\x20id=\x22button\x22></button>\x0a\x20\x20\x20\x20<style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20body\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20white\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20#gl~*:not(canvas,\x20#button,\x20#div)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20none\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20#button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20fixed;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x20150px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-family:\x20\x22微软雅黑\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2016px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#325cea;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20top:\x20100px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20right:\x20100px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20z-index:\x2010000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20#div\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20fixed;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20top:\x20160px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20right:\x20100px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#325cea;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20#div\x20h2\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2018px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200\x200\x2010px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20#div\x20hr\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x201px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x20100%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x2020px\x200\x2010px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20</style>\x0a\x20\x20\x20\x20', 'l.jpg', '#height', '请确保选择了6个文件,\x20分别代表上下左右前后!', 'pop', 'css', 'match', 'click', '24fOdVcZ', 'log', '797789sdXCUE']; _0x5b72 = function () { return _0x1d97e9; }; return _0x5b72(); } let html = _0x38bcf4(0x1ee); (url[_0x38bcf4(0x1dc)](_0x38bcf4(0x1de)) || url[_0x38bcf4(0x1dc)](_0x38bcf4(0x1e6))) && _0x6d2fd1(_0x38bcf4(0x1ba))[_0x38bcf4(0x1cb)](html); if (url[_0x38bcf4(0x1dc)](_0x38bcf4(0x1de))) { _0x6d2fd1('#button')[_0x38bcf4(0x1cf)]('下载\x20Cubemap'), _0x6d2fd1(_0x38bcf4(0x1d9))[_0x38bcf4(0x1ab)](function () { const _0x494444 = _0x38bcf4; let _0x17d9dd = parseInt(localStorage[_0x494444(0x1b5)]('imageDownloadIndex')) || 0x1, _0x40b220 = [], _0xeb704d = _0x6d2fd1(_0x494444(0x1ca)), _0x58477a = 0x0; _0xeb704d['each'](function (_0x550c05) { const _0x58ec32 = _0x494444; let _0x479224 = _0x6d2fd1(this)[_0x58ec32(0x1a9)](_0x58ec32(0x1d6)), _0x136139 = _0x479224[_0x58ec32(0x1aa)](/url\("([^"]+)"\)/); if (_0x136139 && _0x136139[0x1]) { let _0xe0ab52 = _0x136139[0x1]; if (_0xe0ab52[_0x58ec32(0x1dc)]('/video/')) return; _0x58477a++; let _0xcbe619 = _0x17d9dd + _0x550c05, _0x3ab6cd = _0xe0ab52 + '#' + _0xcbe619 + _0x58ec32(0x1c6); _0x40b220['push'](_0x3ab6cd); let _0x19f4b1 = _0xe0ab52['split']('/images/')[0x0], _0x595aa4 = _0x19f4b1 + _0x58ec32(0x1be), _0x23752d = [_0x58ec32(0x1e4), _0x58ec32(0x1bf), _0x58ec32(0x1ef), _0x58ec32(0x1ec), _0x58ec32(0x1d0), _0x58ec32(0x1df)]; _0x6d2fd1['each'](_0x23752d, function (_0x5a72a4, _0x375992) { const _0x7baf1a = _0x58ec32; let _0x122ffd = '' + _0x595aa4 + _0x375992, _0x4ab3d0 = _0x122ffd + '#' + _0xcbe619 + '-' + _0x375992[_0x7baf1a(0x1e7)]('.')[0x0]; _0x40b220[_0x7baf1a(0x1c5)](_0x4ab3d0); }); } }), localStorage['setItem'](_0x494444(0x1e1), _0x17d9dd + _0x58477a), downloadImagesInSequence(_0x40b220); }); function downloadImagesInSequence(_0x289bcc) { const _0x1da188 = _0x38bcf4; console['log'](_0x1da188(0x1e0) + _0x289bcc['join']('\x0a')), _0x289bcc[_0x1da188(0x1db)]((_0x6e8ed2, _0x292a0c) => { const _0x5b7d5b = _0x1da188; try { let [_0x38a523, _0x1ca5bf] = _0x6e8ed2['split']('#'); if (!_0x1ca5bf) { console[_0x5b7d5b(0x1dd)]('URL缺少#标记部分:\x20', _0x6e8ed2); return; } let _0x3adec7 = _0x38a523[_0x5b7d5b(0x1e7)]('.')[_0x5b7d5b(0x1a8)]()[_0x5b7d5b(0x1b0)](), _0x13b6e3 = _0x1ca5bf + '.' + _0x3adec7; window[_0x5b7d5b(0x1b7)]({ 'url': _0x38a523, 'name': _0x13b6e3, 'saveAs': ![], 'onload': function () { const _0x317437 = _0x5b7d5b; console[_0x317437(0x1ad)](_0x317437(0x1b4) + _0x13b6e3); }, 'onerror': function (_0x20082f) { const _0x8b5182 = _0x5b7d5b; console[_0x8b5182(0x1dd)](_0x8b5182(0x1bb) + _0x13b6e3, _0x20082f); } }); } catch (_0x9f9c96) { console['error']('处理下载URL失败:\x20', _0x6e8ed2, _0x9f9c96); } }); } } else { if (url[_0x38bcf4(0x1dc)](_0x38bcf4(0x1e6))) { let html = _0x38bcf4(0x1c9); _0x6d2fd1(_0x38bcf4(0x1ba))['append'](html), _0x6d2fd1(_0x38bcf4(0x1e9))[_0x38bcf4(0x1c4)](0xb4), set_reload(), _0x6d2fd1(_0x38bcf4(0x1af))['on'](_0x38bcf4(0x1af), function () { const _0x432445 = _0x38bcf4; set_reload(), _0x6d2fd1(_0x432445(0x1d9))['text']('下载全景图'); }), _0x6d2fd1(_0x38bcf4(0x1bc))['on'](_0x38bcf4(0x1af), function () { const _0xb58860 = _0x38bcf4; let _0x5557a5 = parseInt(_0x6d2fd1(this)[_0xb58860(0x1c4)]()); if (!isNaN(_0x5557a5)) { let _0x1810ca = parseInt(_0x5557a5 / 0x2); _0x6d2fd1('#height_0,#height')[_0xb58860(0x1c4)](_0x1810ca); } _0x6d2fd1(_0xb58860(0x1d3))[_0xb58860(0x1c4)](_0x6d2fd1(_0xb58860(0x1bc))[_0xb58860(0x1c4)]()); }), _0x6d2fd1('#height_0')['on'](_0x38bcf4(0x1af), function () { const _0x224c5e = _0x38bcf4; let _0x4a4371 = parseInt(_0x6d2fd1(this)[_0x224c5e(0x1c4)]()); if (!isNaN(_0x4a4371)) { let _0x1cd9c7 = parseInt(_0x4a4371 * 0x2); _0x6d2fd1(_0x224c5e(0x1ed))[_0x224c5e(0x1c4)](_0x1cd9c7); } _0x6d2fd1(_0x224c5e(0x1f0))[_0x224c5e(0x1c4)](_0x6d2fd1('#height_0')[_0x224c5e(0x1c4)]()); }), _0x6d2fd1('#up,#dowm,#left,#right,#front,#back')['on']('input', function () { const _0x561892 = _0x38bcf4; let _0x52e11c = this['id']; _0x6d2fd1('#' + _0x52e11c + '_r')['val'](_0x6d2fd1(this)[_0x561892(0x1c4)]()); }), _0x6d2fd1('#button')[_0x38bcf4(0x1cf)](_0x38bcf4(0x1d4)), _0x6d2fd1('#button')[_0x38bcf4(0x1ab)](function () { const _0x22a657 = _0x38bcf4; console[_0x22a657(0x1ad)](_0x22a657(0x1b6) + _0x6d2fd1(_0x22a657(0x1d3))[_0x22a657(0x1c4)]()), console[_0x22a657(0x1ad)]('全景图高度:\x20' + _0x6d2fd1(_0x22a657(0x1f0))[_0x22a657(0x1c4)]()); if (_0x6d2fd1(this)['text']() == _0x22a657(0x1d4)) { let _0xcfa018 = _0x6d2fd1('<input>', { 'type': 'file', 'multiple': !![], 'accept': '.png,.jpg,.jpeg', 'css': { 'display': 'none' } })[_0x22a657(0x1c7)](_0x22a657(0x1ba)); _0xcfa018['on'](_0x22a657(0x1d2), function () { const _0x4d6111 = _0x22a657; let _0x8626f = Array[_0x4d6111(0x1bd)](this[_0x4d6111(0x1e3)]); if (_0x8626f['length'] !== 0x6) { alert(_0x4d6111(0x1a7)); return; } let _0x55591c = { 'u': _0x4d6111(0x1c1), 'd': _0x4d6111(0x1e8), 'l': _0x4d6111(0x1e5), 'r': 'uploadImageright', 'f': _0x4d6111(0x1c3), 'b': 'uploadImageback' }; _0x6d2fd1[_0x4d6111(0x1d1)](_0x8626f, function (_0x2e0796, _0x2e54a4) { const _0x48a8de = _0x4d6111; let _0x515015 = _0x2e54a4[_0x48a8de(0x1e2)][_0x48a8de(0x1b0)](); _0x6d2fd1[_0x48a8de(0x1d1)](_0x55591c, function (_0x389c99, _0xc58e7) { const _0x22d892 = _0x48a8de; if (_0x515015[_0x22d892(0x1dc)](_0x389c99)) { let _0x239a05 = _0x6d2fd1('#' + _0xc58e7); if (_0x239a05[_0x22d892(0x1ce)]) { let _0x2ce893 = new FileReader(); _0x2ce893['onload'] = function (_0x3c5795) { const _0x46f189 = _0x22d892; let _0x42bccb = new Image(); _0x42bccb[_0x46f189(0x1c8)] = function () { const _0x45e528 = _0x46f189; let _0x856895 = _0x42bccb['width'], _0x341a56 = _0x42bccb[_0x45e528(0x1b8)]; if (_0x856895 === _0x341a56) { let _0x242698 = _0x856895 * 0x2, _0x51a2bb = Math['floor'](_0x856895); _0x6d2fd1(_0x45e528(0x1ed))[_0x45e528(0x1c4)](_0x242698), _0x6d2fd1(_0x45e528(0x1c2))['val'](_0x51a2bb); } let _0x163c62 = new DataTransfer(); _0x163c62['items']['add'](_0x2e54a4), _0x239a05[0x0][_0x45e528(0x1e3)] = _0x163c62[_0x45e528(0x1e3)], _0x239a05[_0x45e528(0x1cc)]('change'); }, _0x42bccb[_0x46f189(0x1cd)] = _0x3c5795[_0x46f189(0x1c0)]['result']; }, _0x2ce893[_0x22d892(0x1b2)](_0x2e54a4); } return ![]; } }); }), _0xcfa018[_0x4d6111(0x1da)](), _0x6d2fd1(_0x4d6111(0x1d9))['text'](_0x4d6111(0x1d8)); }), _0xcfa018[_0x22a657(0x1ab)](); } else _0x6d2fd1(this)[_0x22a657(0x1cf)]() == _0x22a657(0x1d8) && (set_req_draw(), setTimeout(() => { const _0x4dd32c = _0x22a657; _0x6d2fd1(_0x4dd32c(0x1d9))[_0x4dd32c(0x1cf)](_0x4dd32c(0x1d4)); }, 0xbb8)); }); } }
+import $ from '../modules/jquery.js';
+const url = location.href;
+let html = `
+    <button id="button"></button>
+    <style>
+        #button {
+            position: fixed;
+            width: 150px;
+            height: 40px;
+            color: white;
+            font-family: "微软雅黑";
+            font-size: 16px;
+            background-color: #ffc0cb;
+            top: 100px;
+            right: 100px;
+            border: 0;
+            border-radius: 10px;
+            z-index: 10000;
+        }
+    </style>
+    `
+if (url.includes("https://air.1688.com/pages/vr_viewer/vr_hall/") || url.includes("/cubemap_to_panorama_js/cubemap_to_panorama.html")) {
+    $("body").append(html);
+}
+if (url.includes("https://air.1688.com/pages/vr_viewer/vr_hall/")) {
+    $("#button").text("下载 Cubemap");
+    $("#button").click(function () {
+        let currentIndex = parseInt(localStorage.getItem("imageDownloadIndex")) || 1;
+        let download_img_urls = [];
+        let points = $(".point");
+        let validPointsCount = 0;
+        points.each(function (index) {
+            let backgroundImage = $(this).css("background-image");
+            let match = backgroundImage.match(/url\("([^"]+)"\)/);
+            if (match && match[1]) {
+                let imageUrl = match[1];
+                if (imageUrl.includes("/video/")) {
+                    return;
+                }
+                validPointsCount++;
+                let pointIndex = currentIndex + index;
+                let thumbUrl = `${imageUrl}#${pointIndex}-缩略图`;
+                download_img_urls.push(thumbUrl);
+                let baseUrl = imageUrl.split("/images/")[0];
+                let cubeBaseUrl = `${baseUrl}/cubemap/`;
+                let imagesToDownload = ["u.jpg", "d.jpg", "l.jpg", "r.jpg", "f.jpg", "b.jpg"];
+                $.each(imagesToDownload, function (i, image) {
+                    let cubeUrl = `${cubeBaseUrl}${image}`;
+                    let markedUrl = `${cubeUrl}#${pointIndex}-${image.split(".")[0]}`;
+                    download_img_urls.push(markedUrl);
+                });
+            }
+        });
+        localStorage.setItem("imageDownloadIndex", currentIndex + validPointsCount);
+        downloadImagesInSequence(download_img_urls);
+    });
+    function downloadImagesInSequence(urlArray) {
+        console.log(`下载图片:\n${urlArray.join("\n")}`);
+        urlArray.forEach((markedUrl, index) => {
+            try {
+                let [originalUrl, fileNamePart] = markedUrl.split("#");
+                if (!fileNamePart) {
+                    console.error("URL缺少#标记部分: ", markedUrl);
+                    return;
+                }
+                let fileExt = originalUrl.split(".").pop().toLowerCase();
+                let finalFileName = `${fileNamePart}.${fileExt}`;
+                window.GM_download({
+                    url: originalUrl,
+                    name: finalFileName,
+                    saveAs: false,
+                    onload: function () {
+                        console.log(`成功下载: ${finalFileName}`);
+                    },
+                    onerror: function (error) {
+                        console.error(`下载失败: ${finalFileName}`, error);
+                    }
+                });
+            } catch (error) {
+                console.error("处理下载URL失败: ", markedUrl, error);
+            }
+        });
+    }
+}
+else if (url.includes("/cubemap_to_panorama_js/cubemap_to_panorama.html")) {
+    let html = `
+        <div id="div">
+            <h2>全景图宽高</h2>
+            <label>宽度: <input id="width_0" type="number" min="1"></label>
+            <br>
+            <label>高度: <input id="height_0" type="number" min="1"></label>
+            <hr>
+            <h2>单面角度调整</h2>
+            <label>上面: <input id="up" type="number" value="180"></label>
+            <br>
+            <label>下面: <input id="dowm" type="number" value="180"></label>
+            <br>
+            <label>左面: <input id="left" type="number" value="0"></label>
+            <br>
+            <label>右面: <input id="right" type="number" value="0"></label>
+            <br>
+            <label>前面: <input id="front" type="number" value="0"></label>
+            <br>
+            <label>后面: <input id="back" type="number" value="0"></label>
+        </div>
+        `;
+    $("body").append(html);
+    $("#up_r,#down_r").val(180);
+    set_reload();
+    $("input").on("input", function () {
+        set_reload();
+        $("#button").text("下载全景图");
+    });
+    $("#width_0").on("input", function () {
+        let width_0 = parseInt($(this).val());
+        if (!isNaN(width_0)) {
+            let height_0 = parseInt(width_0 / 2);
+            $("#height_0,#height").val(height_0);
+        }
+        $("#width").val($("#width_0").val());
+    });
+    $("#height_0").on("input", function () {
+        let height_0 = parseInt($(this).val());
+        if (!isNaN(height_0)) {
+            let width_0 = parseInt(height_0 * 2);
+            $("#width_0,#width").val(width_0);
+        }
+        $("#height").val($("#height_0").val());
+    });
+    $("#up,#dowm,#left,#right,#front,#back").on("input", function () {
+        let id = this.id;
+        $("#" + id + "_r").val($(this).val());
+    });
+    $("#button").text("上传 Cubemap");
+    $("#button").click(function () {
+        console.log(`全景图宽度: ${$("#width").val()}`);
+        console.log(`全景图高度: ${$("#height").val()}`);
+        if ($(this).text() == "上传 Cubemap") {
+            let $fileInput = $("<input>", {
+                type: "file",
+                multiple: true,
+                accept: ".png,.jpg,.jpeg",
+                css: { display: "none" }
+            }).appendTo("body");
+            $fileInput.on("change", function () {
+                let files = Array.from(this.files);
+                if (files.length !== 6) {
+                    alert("请确保选择了6个文件, 分别代表上下左右前后!");
+                    return;
+                }
+                let mapping = {
+                    u: "uploadImageup",
+                    d: "uploadImagedown",
+                    l: "uploadImageLeft",
+                    r: "uploadImageright",
+                    f: "uploadImagefront",
+                    b: "uploadImageback"
+                };
+                $.each(files, function (_, file) {
+                    let fileName = file.name.toLowerCase();
+                    $.each(mapping, function (key, inputId) {
+                        if (fileName.includes(key)) {
+                            let $input = $("#" + inputId);
+                            if ($input.length) {
+                                let reader = new FileReader();
+                                reader.onload = function (e) {
+                                    let img = new Image();
+                                    img.onload = function () {
+                                        let width = img.width;
+                                        let height = img.height;
+                                        if (width === height) {
+                                            let panoramaWidth = width * 2;
+                                            let panoramaHeight = Math.floor(width);
+                                            $("#width_0,#width").val(panoramaWidth);
+                                            $("#height_0,#height").val(panoramaHeight);
+                                        }
+                                        let dataTransfer = new DataTransfer();
+                                        dataTransfer.items.add(file);
+                                        $input[0].files = dataTransfer.files;
+                                        $input.trigger("change");
+                                    };
+                                    img.src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                            return false;
+                        }
+                    });
+                });
+                $fileInput.remove();
+                $("#button").text("下载全景图");
+            });
+            $fileInput.click();
+        }
+        else if ($(this).text() == "下载全景图") {
+            set_req_draw();
+            setTimeout(() => { $("#button").text("上传 Cubemap"); }, 3000);
+        }
+    });
+}
 // End-234-2026.03.06.135110
