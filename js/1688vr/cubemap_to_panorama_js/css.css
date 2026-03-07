@@ -127,7 +127,7 @@ body {
     width: 100%;
     margin: 20px 0 10px 0;
 }
-
+/*
 #div label::before {
     content: "+";
     top: -4px;
@@ -153,10 +153,11 @@ body {
     pointer-events: none;
     color: hotpink;
 }
-
+*/
 input {
-    height: 20px;
+    /*height: 20px;*/
     outline: none;
 }
+
 
 /* End-162-2026.03.07.135128 */
