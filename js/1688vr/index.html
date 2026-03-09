@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作流</title>
+    <style>
+        li {
+            font-family: "微软雅黑";
+            font-size: 20px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        a:visited {
+            color: rgb(0, 0, 238) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>VR下载及转换</h1>
+    <h2>一、准备工作</h2>
+    <ol>
+        <li>安装浏览器，<a href="/work/js/1688vr/MicrosoftEdgeSetup.exe" target="_blank">点击下载</a>(此步骤可跳过，第2步安装失败时建议使用此浏览器)
+        </li>
+        <li>安装Tampermonkey，<a href="/work/js/1688vr/Tampermonkey.crx" target="_blank">点击下载</a>或<a
+                href="https://microsoftedge.microsoft.com/addons/detail/%E7%AF%A1%E6%94%B9%E7%8C%B4%E6%B5%8B%E8%AF%95%E7%89%88/fcmfnpggmnlmfebfghbfnillijihnkoh"
+                target="_blank">点击直接安装</a>(若已安装，此步骤可跳过；如安装失败，可安装上一步的浏览器)</li>
+        <li>安装VR下载及转换全景图脚本，<a href="/work/js/1688vr/work.user.js" target="_blank">点击安装</a>
+        </li>
+    </ol>
+    <h2>二、下载Cubemap及生成Panorama全景图</h2>
+    <ol>
+        <li>打开1688商家的VR全景展示页面，点击下载Cubemap按钮，将自动下载，<a
+                href="https://air.1688.com/pages/vr_viewer/vr_hall/dq193oei7/index.html?__pageId__=1247378&wh_pid=1247378&wvUseWKWebView=true&__existtitle__=1&xrBizCode=pmAuthentication&previewToken=4545b1eeef4140c8bde1f6209a6527ca&sellerLoginId=%E5%B9%BF%E5%B7%9E%E4%B8%8A%E8%BF%AA%E6%B1%BD%E9%85%8D"
+                target="_blank">点击前往示例页</a></li>
+        <li>每个场景对应6张下载图片，格式如下： 1-u.png 1-d.png 1-l.png 1-r.png 1-f.png 1-b.png</li>
+        <li>下载完成后，1-d.png 图片上可能带有1688及各种其他水印，需先处理后再生成全景图</li>
+        <li>下载完成及水印处理完毕后，前往以下页面转换为全景图，<a href="/work/js/1688vr/cubemap_to_panorama_js/cubemap_to_panorama.html"
+                target="_blank">点击前往</a></li>
+        <li>点击上传按钮，批量选择同一组的Cubemap图片，一组为6张：1-u.png 1-d.png 1-l.png 1-r.png 1-f.png 1-b.png</li>
+        <li>上传完成后，查看生成的图片是否有错位，如有错位，调整上下面的角度后直到没有错位，角度分别尝试：0、90、180、270、360</li>
+        <li>没有错位后，点击下载全景图，会分别下载一张带时间戳的全景图和缩略图</li>
+        <li>如果生成的图片filesize太大，造成上传或店铺内预览加载过慢，可使用PS进行适度优化，宽高比保持2：1，不要裁剪像素</li>
+        <li>将全景图和缩略图发布到商家中心</li>
+    </ol>
+</body>
+
+</html>
+<!-- End-52-2026.03.09.125512 -->
