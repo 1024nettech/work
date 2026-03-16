@@ -93,7 +93,7 @@ else if (url.includes("/cubemap_to_panorama_js/cubemap_to_panorama.html")) {
             <h2>单面角度调整</h2>
             <label>上面: <input id="up" type="number" value="180"></label>
             <br>
-            <label>下面: <input id="dowm" type="number" value="180"></label>
+            <label>下面: <input id="down" type="number" value="180"></label>
             <br>
             <label>左面: <input id="left" type="number" value="0"></label>
             <br>
@@ -127,7 +127,7 @@ else if (url.includes("/cubemap_to_panorama_js/cubemap_to_panorama.html")) {
         }
         $("#height").val($("#height_0").val());
     });
-    $("#up,#dowm,#left,#right,#front,#back").on("input", function () {
+    $("#up,#down,#left,#right,#front,#back").on("input", function () {
         let id = this.id;
         $("#" + id + "_r").val($(this).val());
         set_reload();
@@ -206,4 +206,4 @@ else if (url.includes("/cubemap_to_panorama_js/cubemap_to_panorama.html")) {
         }
     });
 }
-// End-209-2026.03.16.085845
+// End-209-2026.03.16.090538
