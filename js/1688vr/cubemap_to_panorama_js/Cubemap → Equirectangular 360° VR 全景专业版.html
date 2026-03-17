@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubemap → Equirectangular 360° VR 全景 专业版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif
+        }
+
+        body {
+            background: #0a0a12;
+            color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .container {
+            width: 95vw;
+            max-width: 1600px
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4cc9f0, #72efdd);
+            background-clip: text;
+            color: transparent
+        }
+
+        .tips {
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 20px
+        }
+
+        .panel {
+            background: #141425;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px
+        }
+
+        .batch-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* 图片上传区域横向排列 */
+        .images-upload-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .image-upload-item {
+            flex: 1;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .image-upload-label {
+            font-weight: 600;
+            color: #72efdd;
+            font-size: 14px;
+        }
+
+        /* 美化的上传按钮样式 */
+        .custom-file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 10px 12px;
+            background: linear-gradient(90deg, #202035, #2a2a40);
+            border: 1px solid #4cc9f0;
+            border-radius: 8px;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .upload-btn:hover {
+            background: linear-gradient(90deg, #2a2a40, #353550);
+            border-color: #72efdd;
+            color: #72efdd;
+            transform: translateY(-2px);
+        }
+
+        .upload-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .face-select {
+            width: 100%;
+            padding: 8px 10px;
+            background: #202035;
+            color: #fff;
+            border: 1px solid #4cc9f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .face-select:focus {
+            outline: none;
+            border-color: #72efdd;
+        }
+
+        .rotate-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .rotate-label {
+            min-width: 70px;
+            font-weight: 600;
+        }
+
+        input[type=range] {
+            width: 120px
+        }
+
+        .value {
+            color: #72efdd;
+            width: 36px;
+            text-align: right
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background: linear-gradient(90deg, #4361ee, #3a0ca3);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #4867f2, #4210b8);
+            transform: translateY(-2px);
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        canvas {
+            width: 100%;
+            height: 70vh;
+            background: #000;
+            border-radius: 12px
+        }
+
+        #image_holder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, .9);
+            display: none;
+            place-items: center
+        }
+
+        #image_prev {
+            max-width: 90%;
+            max-height: 90%
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="title">🧊 Cubemap → Equirectangular 360° VR 全景</h1>
+        <p class="tips">✅ 无错位 ✅ 等距投影 ✅ 自定义映射 ✅ 90°旋转 ✅ WebGL 专业渲染 ✅ 批量上传</p>
+
+        <div class="panel">
+            <!-- 批量上传按钮 -->
+            <div class="batch-row">
+                <button class="btn" onclick="batchUpload()">批量上传6张图 (u/d/l/r/f/b)</button>
+                <input type="file" id="batchInput" accept="image/*" multiple style="display:none;">
+            </div>
+
+            <!-- 图片上传区域 - 横向排列 -->
+            <div class="images-upload-container">
+                <!-- 图像1 -->
+                <div class="image-upload-item">
+                    <label class="image-upload-label">图像 1</label>
+                    <select class="face-select">
+                        <option value="up">上 UP</option>
+                        <option value="back">后 BACK</option>
+                        <option value="left">左 LEFT</option>
+                        <option value="front">前 FRONT</option>
+                        <option value="right">右 RIGHT</option>
+                        <option value="down">下 DOWN</option>
+                    </select>
+                    <div class="custom-file-upload">
+                        <input type="file" class="img-input file-input" accept="image/*">
+                        <label class="upload-btn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                                </path>
+                            </svg>
+                            选择图片
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 图像2 -->
+                <div class="image-upload-item">
+                    <label class="image-upload-label">图像 2</label>
+                    <select class="face-select">
+                        <option value="back">后 BACK</option>
+                        <option value="up">上 UP</option>
+                        <option value="left">左 LEFT</option>
+                        <option value="front">前 FRONT</option>
+                        <option value="right">右 RIGHT</option>
+                        <option value="down">下 DOWN</option>
+                    </select>
+                    <div class="custom-file-upload">
+                        <input type="file" class="img-input file-input" accept="image/*">
+                        <label class="upload-btn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                                </path>
+                            </svg>
+                            选择图片
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 图像3 -->
+                <div class="image-upload-item">
+                    <label class="image-upload-label">图像 3</label>
+                    <select class="face-select">
+                        <option value="left">左 LEFT</option>
+                        <option value="up">上 UP</option>
+                        <option value="back">后 BACK</option>
+                        <option value="front">前 FRONT</option>
+                        <option value="right">右 RIGHT</option>
+                        <option value="down">下 DOWN</option>
+                    </select>
+                    <div class="custom-file-upload">
+                        <input type="file" class="img-input file-input" accept="image/*">
+                        <label class="upload-btn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                                </path>
+                            </svg>
+                            选择图片
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 图像4 -->
+                <div class="image-upload-item">
+                    <label class="image-upload-label">图像 4</label>
+                    <select class="face-select">
+                        <option value="front">前 FRONT</option>
+                        <option value="up">上 UP</option>
+                        <option value="back">后 BACK</option>
+                        <option value="left">左 LEFT</option>
+                        <option value="right">右 RIGHT</option>
+                        <option value="down">下 DOWN</option>
+                    </select>
+                    <div class="custom-file-upload">
+                        <input type="file" class="img-input file-input" accept="image/*">
+                        <label class="upload-btn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                                </path>
+                            </svg>
+                            选择图片
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 图像5 -->
+                <div class="image-upload-item">
+                    <label class="image-upload-label">图像 5</label>
+                    <select class="face-select">
+                        <option value="right">右 RIGHT</option>
+                        <option value="up">上 UP</option>
+                        <option value="back">后 BACK</option>
+                        <option value="left">左 LEFT</option>
+                        <option value="front">前 FRONT</option>
+                        <option value="down">下 DOWN</option>
+                    </select>
+                    <div class="custom-file-upload">
+                        <input type="file" class="img-input file-input" accept="image/*">
+                        <label class="upload-btn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                                </path>
+                            </svg>
+                            选择图片
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 图像6 -->
+                <div class="image-upload-item">
+                    <label class="image-upload-label">图像 6</label>
+                    <select class="face-select">
+                        <option value="down">下 DOWN</option>
+                        <option value="up">上 UP</option>
+                        <option value="back">后 BACK</option>
+                        <option value="left">左 LEFT</option>
+                        <option value="front">前 FRONT</option>
+                        <option value="right">右 RIGHT</option>
+                    </select>
+                    <div class="custom-file-upload">
+                        <input type="file" class="img-input file-input" accept="image/*">
+                        <label class="upload-btn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                                </path>
+                            </svg>
+                            选择图片
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 旋转控制区域 -->
+            <div class="rotate-row">
+                <label class="rotate-label">旋转</label>
+                <span>上</span><input type="range" id="up_r" min="-360" max="360" step="90" value="0"
+                    oninput="updateRotTitle(this)">
+                <span>后</span><input type="range" id="back_r" min="-360" max="360" step="90" value="0"
+                    oninput="updateRotTitle(this)">
+                <span>左</span><input type="range" id="left_r" min="-360" max="360" step="90" value="0"
+                    oninput="updateRotTitle(this)">
+                <span>前</span><input type="range" id="front_r" min="-360" max="360" step="90" value="0"
+                    oninput="updateRotTitle(this)">
+                <span>右</span><input type="range" id="right_r" min="-360" max="360" step="90" value="0"
+                    oninput="updateRotTitle(this)">
+                <span>下</span><input type="range" id="down_r" min="-360" max="360" step="90" value="0"
+                    oninput="updateRotTitle(this)">
+            </div>
+
+            <!-- 操作按钮区域 -->
+            <div class="action-row">
+                <button class="btn" onclick="resetRot()">重置旋转</button>
+                <button class="btn" onclick="renderVR()">生成VR全景</button>
+                <button class="btn" onclick="saveVR()">下载全景图</button>
+                <button class="btn tip">状态: </button>
+            </div>
+        </div>
+
+        <canvas id="gl"></canvas>
+        <div id="image_holder">
+            <img id="image_prev">
+        </div>
+    </div>
+
+    <!-- 顶点着色器 -->
+    <script id="vs" type="x-shader/x-vertex">
+#version 100
+attribute vec3 a_Position;
+varying vec3 vPos;
+void main() {
+    gl_Position=vec4(a_Position,1.0);
+    vPos=a_Position;
+}
+    </script>
+
+    <!-- 片段着色器：立方图 → 等距投影（真正360°VR，无错位） -->
+    <script id="fs" type="x-shader/x-fragment">
+#version 100
+precision highp float;
+uniform samplerCube u_cubemap1;
+uniform vec2 u_resolution;
+varying vec3 vPos;
+
+vec3 equirectangularToCube(vec2 uv) {
+    float longitude = uv.x * 2.0 * 3.1415926535 - 3.1415926535;
+    float latitude = uv.y * 3.1415926535 - 3.1415926535 / 2.0;
+    
+    float cosLat = cos(latitude);
+    return vec3(
+        cosLat * sin(longitude),
+        sin(latitude),
+        cosLat * cos(longitude)
+    );
+}
+
+void main(){
+    vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+    vec3 ray=equirectangularToCube(uv);
+    vec3 color=textureCube(u_cubemap1, ray).rgb;
+    gl_FragColor=vec4(color,1.0);
+}
+    </script>
+
+    <script>
+        "use strict";
+        var cubeSize = 1024;
+        var width = cubeSize * 2;
+        var height = cubeSize;
+        var gl = null, Shader = null;
+        var shadersloaded = false, cubemap_reload = false;
+        var left_tex, right_tex, front_tex, back_tex, down_tex, up_tex, free_tex, cubemap_tex;
+
+        const faceMap = { up: 0, back: 1, left: 2, front: 3, right: 4, down: 5 };
+        let userImages = [null, null, null, null, null, null];
+        // 存储创建的ObjectURL，用于后续释放
+        let objectURLs = [];
+
+        // 批量上传
+        function batchUpload() {
+            document.getElementById('batchInput').click();
+        }
+
+        document.getElementById('batchInput').addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            const inputs = document.querySelectorAll('.img-input');
+            const selects = document.querySelectorAll('.face-select');
+
+            const faceKeys = {
+                'u': 'up',
+                'd': 'down',
+                'l': 'left',
+                'r': 'right',
+                'f': 'front',
+                'b': 'back'
+            };
+
+            files.forEach(file => {
+                const name = file.name.toLowerCase();
+                for (const [key, face] of Object.entries(faceKeys)) {
+                    if (name.includes(key)) {
+                        const index = faceMap[face];
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        inputs[index].files = dataTransfer.files;
+                        selects[index].value = face;
+                        break;
+                    }
+                }
+            });
+            // alert('批量上传匹配完成！');
+            document.querySelector(".tip").textContent = "✅批量上传匹配完成！"
+            renderVR();
+        });
+
+        // 时间戳
+        function getTimestamp() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+            const second = String(now.getSeconds()).padStart(2, '0');
+            return `${year}${month}${day}${hour}${minute}${second}`;
+        }
+
+        function showLoading(text = "加载中...") {
+            console.log(text);
+        }
+
+        // 更新旋转角度的title提示
+        function updateRotTitle(el) {
+            const faceName = el.id.replace('_r', '');
+            const faceCn = {
+                up: '上',
+                back: '后',
+                left: '左',
+                front: '前',
+                right: '右',
+                down: '下'
+            }[faceName];
+            el.title = `${faceCn}面旋转角度: ${el.value}°`;
+            cubemap_reload = true; // 角度变化时重新加载纹理
+        }
+
+        function resetRot() {
+            const rotInputs = ['up_r', 'back_r', 'left_r', 'front_r', 'right_r', 'down_r'];
+            rotInputs.forEach(id => {
+                const el = document.getElementById(id);
+                el.value = 0;
+                updateRotTitle(el); // 重置时更新提示
+            });
+            cubemap_reload = true;
+        }
+
+        var ctmp = document.createElement("canvas");
+        function rotate_img(img, angle) {
+            if (!img) return new ImageData(1, 1);
+            ctmp.width = img.width;
+            ctmp.height = img.height;
+            let ctx = ctmp.getContext("2d");
+            ctx.clearRect(0, 0, ctmp.width, ctmp.height);
+            ctx.save();
+            ctx.translate(ctmp.width / 2, ctmp.height / 2);
+            ctx.rotate(angle * Math.PI / 180);
+            ctx.drawImage(img, -img.width / 2, -img.height / 2);
+            ctx.restore();
+            return ctx.getImageData(0, 0, ctmp.width, ctmp.height);
+        }
+
+        class Texture {
+            constructor(fn) {
+                this.filename = fn;
+                this.isload = false;
+                this.width = 0;
+                this.height = 0;
+                this.image = null;
+                this.data = null;
+
+                if (fn === "dummy") {
+                    this.data = new Uint8Array([128, 128, 128, 255]);
+                    this.isload = true;
+                    this.width = 1;
+                    this.height = 1;
+                    return;
+                }
+                this.load(fn);
+            }
+
+            load(fn) {
+                this.image = new Image();
+                this.image.crossOrigin = "anonymous";
+                this.image.onload = () => {
+                    this.width = this.image.width;
+                    this.height = this.image.height;
+                    cubeSize = this.width;
+                    width = cubeSize * 2;
+                    height = cubeSize;
+                    const canvas = document.getElementById('gl');
+                    canvas.width = width;
+                    canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                    this.isload = true;
+                    cubemap_reload = true;
+                    console.log(`纹理加载: ${this.filename} (${this.width}x${this.height})`);
+                };
+                this.image.onerror = (e) => {
+                    console.error("纹理加载失败", e);
+                    this.isload = false;
+                };
+                this.image.src = fn;
+            }
+        }
+
+        function load_cubemap() {
+            if (!gl) return;
+            if (!cubemap_tex) cubemap_tex = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, cubemap_tex);
+
+            let allLoaded = [up_tex, back_tex, left_tex, front_tex, right_tex, down_tex].every(t => t.isload);
+            let sameSize = [up_tex, back_tex, left_tex, front_tex, right_tex, down_tex].every(t => t.width === cubeSize && t.width > 0);
+            let ready = allLoaded && sameSize;
+
+            const faces = [
+                { target: gl.TEXTURE_CUBE_MAP_POSITIVE_X, tex: right_tex, rot: 'right_r' },
+                { target: gl.TEXTURE_CUBE_MAP_NEGATIVE_X, tex: left_tex, rot: 'left_r' },
+                { target: gl.TEXTURE_CUBE_MAP_POSITIVE_Y, tex: up_tex, rot: 'up_r' },
+                { target: gl.TEXTURE_CUBE_MAP_NEGATIVE_Y, tex: down_tex, rot: 'down_r' },
+                { target: gl.TEXTURE_CUBE_MAP_POSITIVE_Z, tex: back_tex, rot: 'back_r' },
+                { target: gl.TEXTURE_CUBE_MAP_NEGATIVE_Z, tex: front_tex, rot: 'front_r' }
+            ];
+
+            faces.forEach(f => {
+                try {
+                    if (ready && f.tex.image) {
+                        let rot = rotate_img(f.tex.image, document.getElementById(f.rot).value);
+                        gl.texImage2D(f.target, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, rot);
+                    } else {
+                        gl.texImage2D(f.target, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([64, 64, 64, 255]));
+                    }
+                } catch (e) { console.error("纹理上传失败", e) }
+            });
+
+            // 修复：删除 WebGL1 不支持的 TEXTURE_WRAP_R
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, cubemap_tex);
+            if (Shader) gl.uniform1i(gl.getUniformLocation(Shader, "u_cubemap1"), 0);
+        }
+
+        function reload_cubemap() {
+            if (cubemap_reload && gl) { load_cubemap(); cubemap_reload = false; }
+        }
+
+        function frame_step() {
+            if (!gl || !Shader) return;
+
+            gl.clearColor(0.1, 0.1, 0.1, 1);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.useProgram(Shader);
+            gl.uniform2f(gl.getUniformLocation(Shader, "u_resolution"), width, height);
+            gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+            reload_cubemap();
+            requestAnimationFrame(frame_step);
+        }
+
+        function initShader() {
+            function createShader(type, src) {
+                let s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+                    console.error("着色器错误", gl.getShaderInfoLog(s));
+                    gl.deleteShader(s);
+                    return null;
+                }
+                return s;
+            }
+            let v = createShader(gl.VERTEX_SHADER, document.getElementById('vs').textContent.trim());
+            let f = createShader(gl.FRAGMENT_SHADER, document.getElementById('fs').textContent.trim());
+            if (!v || !f) return;
+            Shader = gl.createProgram();
+            gl.attachShader(Shader, v);
+            gl.attachShader(Shader, f);
+            gl.linkProgram(Shader);
+            if (!gl.getProgramParameter(Shader, gl.LINK_STATUS)) {
+                console.error("链接错误", gl.getProgramInfoLog(Shader));
+                Shader = null; return;
+            }
+            shadersloaded = true;
+        }
+
+        function initGL() {
+            let canvas = document.getElementById('gl');
+            canvas.width = width; canvas.height = height;
+            gl = canvas.getContext('webgl', { preserveDrawingBuffer: true }) || canvas.getContext('experimental-webgl');
+            if (!gl) { alert("不支持WebGL"); return; }
+            gl.viewport(0, 0, width, height);
+            initShader();
+
+            let vb = gl.createBuffer();
+            let ib = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 1, 0, -1, -1, 0, 1, -1, 0, 1, 1, 0]), gl.STATIC_DRAW);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 2, 3, 0]), gl.STATIC_DRAW);
+
+            let loc = gl.getAttribLocation(Shader, "a_Position");
+            if (loc >= 0) { gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, 0, 0); gl.enableVertexAttribArray(loc); }
+        }
+
+        function initTextures() {
+            up_tex = new Texture("dummy");
+            back_tex = new Texture("dummy");
+            left_tex = new Texture("dummy");
+            front_tex = new Texture("dummy");
+            right_tex = new Texture("dummy");
+            down_tex = new Texture("dummy");
+            free_tex = new Texture("dummy");
+            load_cubemap();
+
+            // 初始化旋转角度的title提示
+            ['up_r', 'back_r', 'left_r', 'front_r', 'right_r', 'down_r'].forEach(id => {
+                updateRotTitle(document.getElementById(id));
+            });
+        }
+
+        // 释放资源函数
+        function releaseResources() {
+            // 释放ObjectURL资源
+            objectURLs.forEach(url => {
+                URL.revokeObjectURL(url);
+            });
+            objectURLs = [];
+
+            // 清理WebGL纹理
+            if (gl && cubemap_tex) {
+                gl.deleteTexture(cubemap_tex);
+                cubemap_tex = null;
+            }
+
+            // 重置纹理对象
+            up_tex = back_tex = left_tex = front_tex = right_tex = down_tex = free_tex = null;
+
+            console.log('资源已释放');
+        }
+
+        // 清空文件输入框
+        function clearFileInputs() {
+            const inputs = document.querySelectorAll('.img-input, #batchInput');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            console.log('文件输入框已清空');
+        }
+
+        function applyUserImages() {
+            showLoading("应用图片...");
+            const inputs = document.querySelectorAll('.img-input');
+            const selects = document.querySelectorAll('.face-select');
+            let slots = [null, null, null, null, null, null];
+
+            // 先释放旧的资源
+            releaseResources();
+
+            for (let i = 0; i < 6; i++) {
+                let file = inputs[i].files[0];
+                let face = selects[i].value;
+                if (file) {
+                    const url = URL.createObjectURL(file);
+                    slots[faceMap[face]] = url;
+                    objectURLs.push(url); // 保存URL用于后续释放
+                }
+            }
+            up_tex = new Texture(slots[0] || "dummy");
+            back_tex = new Texture(slots[1] || "dummy");
+            left_tex = new Texture(slots[2] || "dummy");
+            front_tex = new Texture(slots[3] || "dummy");
+            right_tex = new Texture(slots[4] || "dummy");
+            down_tex = new Texture(slots[5] || "dummy");
+            setTimeout(() => cubemap_reload = true, 100);
+        }
+
+        function renderVR() {
+            const hasFiles = Array.from(document.querySelectorAll('.img-input')).some(i => i.files.length > 0);
+            if (!hasFiles) { alert("请选择图片"); return; }
+            applyUserImages();
+        }
+
+        // 下载高清+缩略图
+        function saveVR() {
+            const canvas = document.getElementById('gl');
+            const ts = getTimestamp();
+
+            // 检查是否有有效内容
+            if (cubeSize <= 1) {
+                alert('请先生成VR全景图再下载！');
+                return;
+            }
+
+            // 高清图下载
+            try {
+                let a1 = document.createElement('a');
+                a1.download = `${ts}-全景图.png`;
+                a1.href = canvas.toDataURL('image/png');
+                a1.click();
+
+                // 缩略图 400x200
+                let tCanvas = document.createElement('canvas');
+                tCanvas.width = 400; tCanvas.height = 200;
+                let tCtx = tCanvas.getContext('2d');
+                tCtx.drawImage(canvas, 0, 0, 400, 200);
+                let a2 = document.createElement('a');
+                a2.download = `${ts}-缩略图.png`;
+                a2.href = tCanvas.toDataURL('image/png');
+                a2.click();
+
+                // 下载完成后释放资源
+                setTimeout(() => {
+                    releaseResources();
+                    clearFileInputs();
+                    // alert('下载完成！已释放资源并清空文件列表');
+                    document.querySelector(".tip").textContent = "✅下载完成！已释放资源并清空文件列表..."
+                }, 1000);
+
+            } catch (e) {
+                console.error('下载失败', e);
+                alert('下载失败，请重试！');
+            }
+        }
+
+        window.onload = () => {
+            initGL();
+            initTextures();
+            requestAnimationFrame(frame_step);
+        }
+
+        // 页面卸载时确保释放所有资源
+        window.addEventListener('beforeunload', releaseResources);
+    </script>
+</body>
+
+</html>
+<!-- End-828-2026.03.17.124204 -->
