@@ -56,12 +56,6 @@ async function fetchChIdsAndTitles(url) {
     }
 }
 function checkProduct() {
-    if (!document.getElementById('tailwind-cdn')) {
-        const script = document.createElement('script');
-        script.id = 'tailwind-cdn';
-        script.src = 'https://cdn.tailwindcss.com';
-        document.head.appendChild(script);
-    }
     // 检查产品详情
     let id = 0;
     let tip = "";
@@ -91,49 +85,59 @@ function checkProduct() {
     }
     $("#tipx").text(`检查结果: ${tip}`);
     $(function () {
-        // --- 1. 创建全局 Tip 容器 ---
-        const $customTip = $('<div id="auto-tip" class="fixed hidden z-[9999] px-3 py-2 bg-slate-800 text-white text-xs rounded shadow-xl pointer-events-none border border-slate-700 max-w-xs transition-opacity duration-200 opacity-0"></div>').appendTo('body');
+        // 1. 确保 Tailwind CDN 加载
+        if (!document.querySelector('script[src*="tailwindcss"]')) {
+            $('head').append('<script src="https://tailwindcss.com"></script>');
+        }
 
-        // --- 2. 定义显示/隐藏逻辑 ---
-        function showTip(text, e) {
-            $customTip.text(text)
-                .removeClass('hidden opacity-0')
-                .addClass('opacity-100')
-                .css({
+        // 2. 创建符合要求的 Tip 容器
+        // text-[20px]: 20字号 | px-[10px] py-[5px]: 指定内边距
+        // bg-gradient-to-r: 科技蓝渐变 | shadow-lg: 悬浮阴影 | whitespace-nowrap: 自动撑开单行
+        const $customTip = $(`
+        <div id="auto-tip" 
+             class="fixed hidden z-[9999] pointer-events-none 
+                    text-[20px] text-white font-medium whitespace-nowrap
+                    px-[10px] py-[5px] 
+                    bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 
+                    rounded shadow-[0_4px_15px_rgba(0,0,0,0.3)] 
+                    transition-opacity duration-200 opacity-0">
+        </div>
+    `).appendTo('body');
+
+        // 3. 通用显示逻辑
+        function handleTip(selector, message, condition = () => true) {
+            $(document).on('mouseenter', selector, function (e) {
+                if (condition(this)) {
+                    $customTip.text(message)
+                        .removeClass('hidden')
+                        .css({
+                            left: e.clientX + 15 + 'px',
+                            top: e.clientY + 15 + 'px',
+                            opacity: 1
+                        });
+                }
+            }).on('mousemove', selector, function (e) {
+                $customTip.css({
                     left: e.clientX + 15 + 'px',
                     top: e.clientY + 15 + 'px'
                 });
+            }).on('mouseleave', selector, function () {
+                $customTip.css({ opacity: 0 }).addClass('hidden');
+            });
         }
 
-        function hideTip() {
-            $customTip.addClass('opacity-0 hidden');
-        }
+        // 4. 绑定具体元素逻辑
+        // A. 超链接
+        handleTip(".main a", "⚠️ 存在超链接！");
 
-        // --- 3. 元素逻辑判断与事件绑定 ---
+        // B. 非超链接小手
+        handleTip(".main *[style*=pointer]", "👉 存在非超链接小手！", (el) => !$(el).is('a'));
 
-        // A. 超链接处理
-        $(".main a").on('mouseenter', function (e) {
-            showTip("⚠️ 存在超链接！", e);
-        }).on('mousemove', function (e) {
-            $customTip.css({ left: e.clientX + 15 + 'px', top: e.clientY + 15 + 'px' });
-        }).on('mouseleave', hideTip);
-
-        // B. 非超链接小手处理
-        $(".main *[style*=pointer]").not('a').on('mouseenter', function (e) {
-            showTip("👉 存在非超链接小手！", e);
-        }).on('mousemove', function (e) {
-            $customTip.css({ left: e.clientX + 15 + 'px', top: e.clientY + 15 + 'px' });
-        }).on('mouseleave', hideTip);
-
-        // C. 外链图片处理
-        $(".main img").on('mouseenter', function (e) {
-            let src = $(this).attr("src") || "";
-            if (!src.includes("aimg8.dlssyht.cn")) {
-                showTip("🖼️ 存在外链图片！", e);
-            }
-        }).on('mousemove', function (e) {
-            $customTip.css({ left: e.clientX + 15 + 'px', top: e.clientY + 15 + 'px' });
-        }).on('mouseleave', hideTip);
+        // C. 外链图片
+        handleTip(".main img", "🖼️ 存在外链图片！", (el) => {
+            const src = $(el).attr("src") || "";
+            return !src.includes("aimg8.dlssyht.cn");
+        });
     });
 };
 function zhutu_upload() {
@@ -728,4 +732,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-731-2026.05.09.100002
+// End-735-2026.05.09.100910
