@@ -6,6 +6,7 @@ import * as img from "./img.js"
 async function main() {
     const url = location.href;
     let auth = localStorage.getItem("auth"); // 000: 第一位为admin权限, 第二位为组长查店铺权限, 第三位为截图权限
+    console.log(auth);
     const today = publics.generateTimestamp(0);
     const stored_day = await publics.getAndLog("date");
     if (stored_day !== today) {
