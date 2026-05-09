@@ -85,17 +85,22 @@ function checkProduct() {
     }
     $("#tipx").text(`检查结果: ${tip}`);
     $(function () {
-        // 1. 确保 Tailwind CDN 加载
-        if (!document.querySelector('script[src*="tailwindcss"]')) {
-            $('head').append('<script src="https://cdn.tailwindcss.com"></script>');
-            window.tailwind = {
-                config: {
-                    corePlugins: {
-                        preflight: false, // 禁用基础样式重置，防止污染
-                    }
+        // 1. 先定义配置对象（必须在脚本加载前或同步定义）
+        window.tailwind = {
+            config: {
+                corePlugins: {
+                    preflight: false, // 彻底禁用样式重置，解决污染
                 }
-            };
+            }
+        };
+
+        // 2. 动态加载 CDN（如果还没加载）
+        if (!document.querySelector('script[src*="tailwindcss"]')) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.tailwindcss.com';
+            document.head.appendChild(script);
         }
+
 
         // 2. 创建符合要求的 Tip 容器
         // text-[20px]: 20字号 | px-[10px] py-[5px]: 指定内边距
@@ -739,4 +744,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-742-2026.05.09.102706
+// End-747-2026.05.09.103215
