@@ -85,43 +85,36 @@ function checkProduct() {
     }
     $("#tipx").text(`检查结果: ${tip}`);
     $(function () {
-        // 1. 先定义配置对象（必须在脚本加载前或同步定义）
-        window.tailwind = {
-            config: {
-                corePlugins: {
-                    preflight: false, // 彻底禁用样式重置，解决污染
-                }
-            }
-        };
-
-        // 2. 动态加载 CDN（如果还没加载）
-        if (!document.querySelector('script[src*="tailwindcss"]')) {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.tailwindcss.com';
-            document.head.appendChild(script);
+        // 1. 注入纯 CSS 样式（模拟之前的科技蓝渐变和 20px 字号）
+        $('<style>').text(`
+        #auto-tip {
+            position: fixed;
+            display: none;
+            z-index: 9999;
+            pointer-events: none;
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 5px 10px;
+            /* 科技蓝渐变 */
+            background: linear-gradient(to right, #1d4ed8, #2563eb, #3b82f6);
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.2s;
+            opacity: 0;
         }
+    `).appendTo('head');
 
-
-        // 2. 创建符合要求的 Tip 容器
-        // text-[20px]: 20字号 | px-[10px] py-[5px]: 指定内边距
-        // bg-gradient-to-r: 科技蓝渐变 | shadow-lg: 悬浮阴影 | whitespace-nowrap: 自动撑开单行
-        const $customTip = $(`
-        <div id="auto-tip" 
-             class="fixed hidden z-[9999] pointer-events-none 
-                    text-[20px] text-white font-medium whitespace-nowrap
-                    px-[10px] py-[5px] 
-                    bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 
-                    rounded shadow-[0_4px_15px_rgba(0,0,0,0.3)] 
-                    transition-opacity duration-200 opacity-0">
-        </div>
-    `).appendTo('body');
+        // 2. 创建 Tip 容器
+        const $customTip = $('<div id="auto-tip"></div>').appendTo('body');
 
         // 3. 通用显示逻辑
         function handleTip(selector, message, condition = () => true) {
             $(document).on('mouseenter', selector, function (e) {
                 if (condition(this)) {
                     $customTip.text(message)
-                        .removeClass('hidden')
+                        .show()
                         .css({
                             left: e.clientX + 15 + 'px',
                             top: e.clientY + 15 + 'px',
@@ -134,7 +127,7 @@ function checkProduct() {
                     top: e.clientY + 15 + 'px'
                 });
             }).on('mouseleave', selector, function () {
-                $customTip.css({ opacity: 0 }).addClass('hidden');
+                $customTip.css({ opacity: 0 }).hide();
             });
         }
 
@@ -744,4 +737,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-747-2026.05.09.103215
+// End-740-2026.05.09.103907
