@@ -82,6 +82,7 @@ function checkProduct() {
     } else {
         $("#tipx").css("background-color", "red");
         alert(tip);
+        publics.myAlert("⚠️ 警告提示", tip);
     }
     $("#tipx").text(`检查结果: ${tip}`);
     $(function () {
@@ -737,4 +738,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-740-2026.05.09.103907
+// End-741-2026.05.09.160120
