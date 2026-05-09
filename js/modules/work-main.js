@@ -163,16 +163,16 @@ async function main() {
                         // 获取产品性质和专属车型
                         let productProperties = "";
                         let exclusiveModels = "";
-                        let properties = response.responseText.split("产品性质")[1].split("tr")[0].split("checked=");
+                        let properties = response.responseText.split("服务专区")[1].split("tr")[0].split("checked=");
                         for (let prop of properties) {
                             if (prop.includes("checked")) {
                                 productProperties += prop.match(/[\u4e00-\u9fa5]+/) + "-";
                             }
                         }
                         productProperties = productProperties.slice(0, -1);
-                        exclusiveModels = response.responseText.split("专属车型")[1].split(`"checked"`)[1].split("</label>")[0].match(/[\u4e00-\u9fa5]+/);
-                        $("#span3").text(`产品性质: ${productProperties}`);
-                        $("#span4").text(`专属车型: ${exclusiveModels}`);
+                        // exclusiveModels = response.responseText.split("专属车型")[1].split(`"checked"`)[1].split("</label>")[0].match(/[\u4e00-\u9fa5]+/);
+                        $("#span3").text(`服务专区: ${productProperties}`);
+                        // $("#span4").text(`专属车型: ${exclusiveModels}`);
                         // 获取系统分类id
                         let bigId = response.responseText.split(`"big_id"`)[2].split(`"`)[1];
                         let subId = response.responseText.split(`"sub_id"`)[2].split(`"`)[1];
@@ -189,6 +189,7 @@ async function main() {
             }
         }
         if (url.includes("shops_info.php") || url.includes("sc_product.php")) {
+            return;
             qipei.auto_city();
             // 商品发布页面
             $("body").append(`
