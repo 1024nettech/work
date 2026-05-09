@@ -75,7 +75,7 @@ async function main() {
             let urls = ["https://1024nettech.github.io/work/css/work-admin.css?time=1&module=0"];
             publics.loadFiles(urls);
             // 店铺内打开、关闭产品
-            publics.onKeyUp("Esc", function () {
+            publics.onKeyUp("Escape", function () {
                 qipei.open_close_shop_products();
             });
             if (url.includes("mshop/?")) {
@@ -306,4 +306,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-309-2026.05.09.143556
+// End-309-2026.05.09.143958
