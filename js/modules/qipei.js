@@ -87,7 +87,7 @@ function checkProduct() {
     $(function () {
         // 1. 确保 Tailwind CDN 加载
         if (!document.querySelector('script[src*="tailwindcss"]')) {
-            $('head').append('<script src="https://tailwindcss.com"></script>');
+            $('head').append('<script src="https://cdn.tailwindcss.com"></script>');
         }
 
         // 2. 创建符合要求的 Tip 容器
@@ -732,4 +732,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-735-2026.05.09.100910
+// End-735-2026.05.09.101314
