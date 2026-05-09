@@ -6,7 +6,6 @@ import * as img from "./img.js"
 async function main() {
     const url = location.href;
     let auth = localStorage.getItem("auth"); // 000: 第一位为admin权限, 第二位为组长查店铺权限, 第三位为截图权限
-    console.log(auth);
     const today = publics.generateTimestamp(0);
     const stored_day = await publics.getAndLog("date");
     if (stored_day !== today) {
@@ -14,9 +13,7 @@ async function main() {
         localStorage.clear();
         await publics.clearAll();
         await publics.setAndLog("date", today);
-        console.log(auth);
         await publics.setAndLog("auth", auth);
-        console.log(auth);
     }
     auth = await publics.getAndLog("auth");
     if (url.includes("qipeiyigou.com")) {
@@ -309,4 +306,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-309-2026.05.09.123809
+// End-309-2026.05.09.130808
