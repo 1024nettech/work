@@ -14,7 +14,9 @@ async function main() {
         localStorage.clear();
         await publics.clearAll();
         await publics.setAndLog("date", today);
+        console.log(auth);
         await publics.setAndLog("auth", auth);
+        console.log(auth);
     }
     auth = await publics.getAndLog("auth");
     if (url.includes("qipeiyigou.com")) {
