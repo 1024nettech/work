@@ -56,6 +56,12 @@ async function fetchChIdsAndTitles(url) {
     }
 }
 function checkProduct() {
+    if (!document.getElementById('tailwind-cdn')) {
+        const script = document.createElement('script');
+        script.id = 'tailwind-cdn';
+        script.src = 'https://cdn.tailwindcss.com';
+        document.head.appendChild(script);
+    }
     // 检查产品详情
     let id = 0;
     let tip = "";
@@ -84,6 +90,51 @@ function checkProduct() {
         alert(tip);
     }
     $("#tipx").text(`检查结果: ${tip}`);
+    $(function () {
+        // --- 1. 创建全局 Tip 容器 ---
+        const $customTip = $('<div id="auto-tip" class="fixed hidden z-[9999] px-3 py-2 bg-slate-800 text-white text-xs rounded shadow-xl pointer-events-none border border-slate-700 max-w-xs transition-opacity duration-200 opacity-0"></div>').appendTo('body');
+
+        // --- 2. 定义显示/隐藏逻辑 ---
+        function showTip(text, e) {
+            $customTip.text(text)
+                .removeClass('hidden opacity-0')
+                .addClass('opacity-100')
+                .css({
+                    left: e.clientX + 15 + 'px',
+                    top: e.clientY + 15 + 'px'
+                });
+        }
+
+        function hideTip() {
+            $customTip.addClass('opacity-0 hidden');
+        }
+
+        // --- 3. 元素逻辑判断与事件绑定 ---
+
+        // A. 超链接处理
+        $(".main a").on('mouseenter', function (e) {
+            showTip("⚠️ 存在超链接！", e);
+        }).on('mousemove', function (e) {
+            $customTip.css({ left: e.clientX + 15 + 'px', top: e.clientY + 15 + 'px' });
+        }).on('mouseleave', hideTip);
+
+        // B. 非超链接小手处理
+        $(".main *[style*=pointer]").not('a').on('mouseenter', function (e) {
+            showTip("👉 存在非超链接小手！", e);
+        }).on('mousemove', function (e) {
+            $customTip.css({ left: e.clientX + 15 + 'px', top: e.clientY + 15 + 'px' });
+        }).on('mouseleave', hideTip);
+
+        // C. 外链图片处理
+        $(".main img").on('mouseenter', function (e) {
+            let src = $(this).attr("src") || "";
+            if (!src.includes("aimg8.dlssyht.cn")) {
+                showTip("🖼️ 存在外链图片！", e);
+            }
+        }).on('mousemove', function (e) {
+            $customTip.css({ left: e.clientX + 15 + 'px', top: e.clientY + 15 + 'px' });
+        }).on('mouseleave', hideTip);
+    });
 };
 function zhutu_upload() {
     // Create a single upload button
@@ -677,4 +728,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-680-2026.01.31.162542
+// End-731-2026.05.09.100002
