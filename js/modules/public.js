@@ -348,5 +348,40 @@ function copyTextOnClick(selector) {
         }
     });
 }
-export { sendRequest, loadFiles, generateTimestamp, sliceImage, takeScreenshots, clearAll, setAndLog, getAndLog, waitfor, parseJson, getUrlParameter, addDownloadButton, onKeyUp, copyTextOnClick }
-// End-352-2026.01.07.104003
+/**
+ * 模拟 Alert 弹窗
+ * @param {string} title 标题
+ * @param {string} message 内容
+ * @param {function} callback 点击确定后的回调
+ */
+function myAlert(title, message, callback) {
+    if ($('.custom-alert-overlay').length > 0) return;
+
+    const alertHtml = `
+        <div class="custom-alert-overlay">
+            <div class="custom-alert-card">
+                <div class="custom-alert-title">${title}</div>
+                <div class="custom-alert-message">${message}</div>
+                <button class="custom-alert-btn">好 的</button>
+            </div>
+        </div>
+    `;
+
+    const $alert = $(alertHtml).appendTo('body');
+    setTimeout(() => $alert.addClass('active'), 10);
+
+    $alert.find('.custom-alert-btn').on('click', function () {
+        $alert.removeClass('active');
+
+        setTimeout(() => {
+            $alert.remove();
+            // --- 核心修改点：可选回调 ---
+            // 只有当 callback 是一个函数时才执行它
+            if (typeof callback === 'function') {
+                callback();
+            }
+        }, 300);
+    });
+}
+export { sendRequest, loadFiles, generateTimestamp, sliceImage, takeScreenshots, clearAll, setAndLog, getAndLog, waitfor, parseJson, getUrlParameter, addDownloadButton, onKeyUp, copyTextOnClick, myAlert }
+// End-387-2026.05.09.155401
