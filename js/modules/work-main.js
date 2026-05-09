@@ -121,7 +121,7 @@ async function main() {
                         <span id="span1">查询中……</span><br>
                         <span id="span2">系统分类: </span><br>
                         <span id="span3">产品性质: </span><br>
-                        <span id="span4">专属车型: </span><br>
+                        <!-- <span id="span4">专属车型: </span><br> -->
                     </div>
                     <p id="tipx">正在检查中……</p>
                     `;
@@ -306,4 +306,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-309-2026.05.09.093912
+// End-309-2026.05.09.094305
