@@ -173,29 +173,45 @@ async function main() {
                         // exclusiveModels = response.responseText.split("专属车型")[1].split(`"checked"`)[1].split("</label>")[0].match(/[\u4e00-\u9fa5]+/);
                         $("#span3").text(`服务专区: ${productProperties}`);
                         // $("#span4").text(`专属车型: ${exclusiveModels}`);
-                        // 获取系统分类id
-                        let bigId = response.responseText.split(`"big_id"`)[2].split(`"`)[1];
-                        let subId = response.responseText.split(`"sub_id"`)[2].split(`"`)[1];
-                        // 获取系统分类名
-                        req_url = `http://admin.qipeiyigou.com/Ajax/VT/AjaxGetInfo.php?ch_id=${channelId}&req_method=5&one_cid=${bigId}&two_cid=${subId}`;
-                        publics.sendRequest(req_url, "", "GET", function (response) {
-                            // let one_class = response.responseText.split(`"${bigId}","classname":`)[1].split(",")[0].split(`"`)[1];
-                            // let two_class = response.responseText.split(`"${subId}","classname":`)[1].split(",")[0].split(`"`)[1];
-                            // $("#span2").text(`系统分类: ${channelName}-${one_class}-${two_class}`);
-                            // $("#span1").text("查询完毕……");
-                            // 获取 one_class
-                            let one_part = response.responseText.split(`"${bigId}","classname":`)[1];
-                            let one_class = one_part ? one_part.split(",")[0].split(`"`)[1] : "";
+                        // 1. 安全提取 ID 的辅助逻辑
+                        const getAttrId = (name) => {
+                            let part = response.responseText.split(`"${name}"`)[2];
+                            return part ? part.split(`"`)[1] : null;
+                        };
 
-                            // 获取 two_class，如果不存在则默认为 ""
-                            let two_part = response.responseText.split(`"${subId}","classname":`)[1];
-                            let two_class = two_part ? two_part.split(",")[0].split(`"`)[1] : "";
+                        let bigId = getAttrId("big_id");
+                        let subId = getAttrId("sub_id");
+                        let ssId = getAttrId("sub_sub_id"); // 三级 ID
 
-                            // 拼接显示内容
-                            $("#span2").text(`系统分类: ${channelName}-${one_class}${two_class ? '-' + two_class : ''}`);
+                        // 2. 发起请求
+                        let req_url = `http://qipeiyigou.com{channelId}&req_method=5&one_cid=${bigId || ''}&two_cid=${subId || ''}`;
+
+                        publics.sendRequest(req_url, "", "GET", function (res) {
+                            let resText = res.responseText;
+
+                            // 辅助提取类名的函数：如果找不到锚点或格式不对，直接返回 null
+                            const getName = (id) => {
+                                if (!id) return null;
+                                let anchor = `"${id}","classname":`;
+                                if (!resText.includes(anchor)) return null;
+                                try {
+                                    return resText.split(anchor)[1].split(",")[0].replace(/"/g, '');
+                                } catch (e) { return null; }
+                            };
+
+                            // 3. 提取各级名称
+                            let c1 = getName(bigId);
+                            let c2 = getName(subId);
+                            let c3 = getName(ssId);
+
+                            // 4. 过滤掉所有为 null 或空的项，用 "-" 连接
+                            // filter(Boolean) 会自动剔除 null, undefined, ""
+                            let classChain = [channelName, c1, c2, c3].filter(Boolean).join('-');
+
+                            $("#span2").text(`系统分类: ${classChain}`);
                             $("#span1").text("查询完毕……");
-
                         });
+
                     }
                 });
             }
@@ -290,4 +306,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-280-2026.01.29.084906
+// End-309-2026.05.09.093337
