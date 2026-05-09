@@ -184,7 +184,7 @@ async function main() {
                         let ssId = getAttrId("sub_sub_id"); // 三级 ID
 
                         // 2. 发起请求
-                        let req_url = `http://qipeiyigou.com{channelId}&req_method=5&one_cid=${bigId || ''}&two_cid=${subId || ''}`;
+                        let req_url = `http://admin.qipeiyigou.com/Ajax/VT/AjaxGetInfo.php?ch_id=${channelId}&req_method=5&one_cid=${bigId || ''}&two_cid=${subId || ''}`;
 
                         publics.sendRequest(req_url, "", "GET", function (res) {
                             let resText = res.responseText;
@@ -306,4 +306,4 @@ let interval = setInterval(function () {
         }
     }
 }, 1000);
-// End-309-2026.05.09.093337
+// End-309-2026.05.09.093912
