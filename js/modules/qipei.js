@@ -78,7 +78,7 @@ function checkProduct() {
             break;
         }
     }
-    let mainText = $("html").text();
+    let mainText = $("#siteHeader+div>.content:eq(0)").text();
     let matchWords = [];
     for (let word of keywords) {
         if (mainText.includes(word)) {
@@ -749,4 +749,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-752-2026.05.23.102722
+// End-752-2026.05.23.104247
