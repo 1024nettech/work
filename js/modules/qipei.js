@@ -59,6 +59,7 @@ function checkProduct() {
     // 检查产品详情
     let id = 0;
     let tip = "";
+    let keywords = ['淘宝', '京东', '1688', '拼多多', '苏宁易购', '超级工厂', '大聚惠', '直通车', '京东快车', '实力商家', '放心推', '任性付', '超级推荐', '快车', '诚信通', '万人团', '极物', '引力魔方', '京东海投', '淘工厂', '多多进宝', '宜品', '钻展', '海投', '跨境专供', '拼单', '帮客', '淘宝客', '京东展位', '伙拼', '砍一刀', '易付宝', '生意参谋', '京挑客', '橱窗宝', '多多', '零售云', '聚划算', 'POP', '营效宝', '拼购', '送装一体', '淘金币', '京喜', '交易勋章', '拼小圈', '天猫', '京东直投', '拼团', '飞猪', '京准通', 'ocpm', '百亿补贴', '咚咚', '千牛', '京豆', '天天特卖', '京工厂', '旺铺', '商智', '淘气值', '慧采', '营商宝', '工采', '旺旺', '白条', '单品宝', '京造', '阿里妈妈', '京尊达', '万象台', '限时达', '逛逛', 'plus', '三振出局', '金榜', 'dsr', '正品保障', '亚马逊', '速卖通', '一件代发', '跨店满减', '出口', '外贸', '电商', '中国制造网', '微商', '分销商', '平台代理', '混批', '跨境', '深度认证', '月发货速度', '已售', 'LAZADA', '独立站wish', '分期', '代发'];
     $("#tipx").text("正在检查中……");
     if ($(".main a").length) {
         id = 1;
@@ -76,6 +77,17 @@ function checkProduct() {
             tip += "存在外链图片！";
             break;
         }
+    }
+    let mainText = $("html").text();
+    let matchWords = [];
+    for (let word of keywords) {
+        if (mainText.includes(word)) {
+            matchWords.push(word);
+        }
+    }
+    if (matchWords.length > 0) {
+        id = 4;
+        tip += "包含违禁关键词：" + matchWords.join(" - ");
     }
     if (id === 0) {
         tip = "正常！";
@@ -737,4 +749,4 @@ function auto_city() {
     }
 }
 export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-740-2026.05.09.160602
+// End-752-2026.05.23.102722
