@@ -1,27 +1,27 @@
-import { $ } from "./jquery.js";
-import { set, get, del, keys } from "./idb-keyval.js"
-import * as publics from "./public.js"
+import { $ } from './jquery.js';
+import { set, get, del, keys } from './idb-keyval.js';
+import * as publics from './public.js';
 const url = location.href;
 function open_close_shop_products() {
     // 店铺内打开或关闭产品
-    if (!location.href.includes("mshop/product/item")) {
-        $(".list .image").each(function () {
-            window.open($(this).attr("href"));
+    if (!location.href.includes('mshop/product/item')) {
+        $('.list .image').each(function () {
+            window.open($(this).attr('href'));
         });
-    } else if (location.href.includes("mshop/product/item")) {
+    } else if (location.href.includes('mshop/product/item')) {
         window.close();
     }
 }
 function showKeyword() {
     // 显示关键词
-    let keyword = $("meta[name=keywords]").attr("content");
-    let author = $("meta[name=author]").attr("content");
+    let keyword = $('meta[name=keywords]').attr('content');
+    let author = $('meta[name=author]').attr('content');
     if (keyword.includes(author)) {
-        $("#keywordx").text("关键词为空");
+        $('#keywordx').text('关键词为空');
     } else {
-        $("#keywordx").text(keyword);
+        $('#keywordx').text(keyword);
     }
-};
+}
 async function fetchChIdsAndTitles(url) {
     // 获取产品栏目id和名称{}
     try {
@@ -30,55 +30,161 @@ async function fetchChIdsAndTitles(url) {
             throw new Error(`请求失败, 状态码: ${response.status}`);
         }
         let arrayBuffer = await response.arrayBuffer();
-        let decoder = new TextDecoder("gbk");
+        let decoder = new TextDecoder('gbk');
         let decodedText = decoder.decode(arrayBuffer);
         let parser = new DOMParser();
-        let doc = parser.parseFromString(decodedText, "text/html");
+        let doc = parser.parseFromString(decodedText, 'text/html');
         let anchorElements = doc.querySelectorAll(`a[href*="ch_id="]`);
         let chIdDict = {};
-        anchorElements.forEach(anchor => {
+        anchorElements.forEach((anchor) => {
             let chIdMatch = anchor.href.match(/ch_id=(\d+)/);
             if (chIdMatch) {
                 let chId = chIdMatch[1];
-                let titleElement = anchor.querySelector(".p-tit");
-                let title = titleElement ? titleElement.textContent.trim() : "";
+                let titleElement = anchor.querySelector('.p-tit');
+                let title = titleElement ? titleElement.textContent.trim() : '';
                 if (title) {
                     chIdDict[chId] = title;
                 }
             }
         });
-        if (chIdDict) { await set("chIds", Object.keys(chIdDict)); }
-        console.log("提取到的 ch_id 和标题字典: ", chIdDict);
+        if (chIdDict) {
+            await set('chIds', Object.keys(chIdDict));
+        }
+        console.log('提取到的 ch_id 和标题字典: ', chIdDict);
         return chIdDict;
     } catch (error) {
-        console.error("请求失败: " + error.message);
+        console.error('请求失败: ' + error.message);
         return {};
     }
 }
 function checkProduct() {
     // 检查产品详情
     let id = 0;
-    let tip = "";
-    let keywords = ['淘宝', '京东', '1688', '拼多多', '苏宁易购', '超级工厂', '大聚惠', '直通车', '京东快车', '实力商家', '放心推', '任性付', '超级推荐', '快车', '诚信通', '万人团', '极物', '引力魔方', '京东海投', '淘工厂', '多多进宝', '宜品', '钻展', '海投', '跨境专供', '拼单', '帮客', '淘宝客', '京东展位', '伙拼', '砍一刀', '易付宝', '生意参谋', '京挑客', '橱窗宝', '多多', '零售云', '聚划算', 'POP', '营效宝', '拼购', '送装一体', '淘金币', '京喜', '交易勋章', '拼小圈', '天猫', '京东直投', '拼团', '飞猪', '京准通', 'ocpm', '百亿补贴', '咚咚', '千牛', '京豆', '天天特卖', '京工厂', '旺铺', '商智', '淘气值', '慧采', '营商宝', '工采', '旺旺', '白条', '单品宝', '京造', '阿里妈妈', '京尊达', '万象台', '限时达', '逛逛', 'plus', '三振出局', '金榜', 'dsr', '正品保障', '亚马逊', '速卖通', '一件代发', '跨店满减', '出口', '外贸', '电商', '中国制造网', '微商', '分销商', '平台代理', '混批', '跨境', '深度认证', '月发货速度', '已售', 'LAZADA', '独立站wish', '分期', '代发'];
-    $("#tipx").text("正在检查中……");
-    if ($(".main a").length) {
+    let tip = '';
+    let keywords = [
+        '淘宝',
+        '京东',
+        '1688',
+        '拼多多',
+        '苏宁易购',
+        '超级工厂',
+        '大聚惠',
+        '直通车',
+        '京东快车',
+        '实力商家',
+        '放心推',
+        '任性付',
+        '超级推荐',
+        '快车',
+        '诚信通',
+        '万人团',
+        '极物',
+        '引力魔方',
+        '京东海投',
+        '淘工厂',
+        '多多进宝',
+        '宜品',
+        '钻展',
+        '海投',
+        '跨境专供',
+        '拼单',
+        '帮客',
+        '淘宝客',
+        '京东展位',
+        '伙拼',
+        '砍一刀',
+        '易付宝',
+        '生意参谋',
+        '京挑客',
+        '橱窗宝',
+        '多多',
+        '零售云',
+        '聚划算',
+        'POP',
+        '营效宝',
+        '拼购',
+        '送装一体',
+        '淘金币',
+        '京喜',
+        '交易勋章',
+        '拼小圈',
+        '天猫',
+        '京东直投',
+        '拼团',
+        '飞猪',
+        '京准通',
+        'ocpm',
+        '百亿补贴',
+        '咚咚',
+        '千牛',
+        '京豆',
+        '天天特卖',
+        '京工厂',
+        '旺铺',
+        '商智',
+        '淘气值',
+        '慧采',
+        '营商宝',
+        '工采',
+        '旺旺',
+        '白条',
+        '单品宝',
+        '京造',
+        '阿里妈妈',
+        '京尊达',
+        '万象台',
+        '限时达',
+        '逛逛',
+        'plus',
+        '三振出局',
+        '金榜',
+        'dsr',
+        '正品保障',
+        '亚马逊',
+        '速卖通',
+        '一件代发',
+        '跨店满减',
+        '出口',
+        '外贸',
+        '电商',
+        '中国制造网',
+        '微商',
+        '分销商',
+        '平台代理',
+        '混批',
+        '跨境',
+        '深度认证',
+        '月发货速度',
+        '已售',
+        'LAZADA',
+        '独立站wish',
+        '分期',
+        '代发',
+    ];
+    $('#tipx').text('正在检查中……');
+    if ($('.main a').length) {
         id = 1;
-        tip += "存在超链接！";
+        tip += '存在超链接！';
     }
-    if ($(".main *[style*=pointer]").length) {
+    if ($('.main *[style*=pointer]').length) {
         id = 2;
-        tip += "存在非超链接小手！";
+        tip += '存在非超链接小手！';
     }
-    let images = $(".main img");
+    let images = $('.main img');
     for (let i = 0; i < images.length; i++) {
-        let src = images.eq(i).attr("src");
-        if (!src.includes("aimg8.dlssyht.cn")) {
+        let src = images.eq(i).attr('src');
+        if (!src.includes('aimg8.dlssyht.cn')) {
             id = 3;
-            tip += "存在外链图片！";
+            tip += '存在外链图片！';
             break;
         }
     }
-    let mainText = $("#siteHeader+div>.content:eq(0)").text();
+    let mainText = $('#siteHeader+div>.content:eq(0)').text();
+    mainText =
+        $('.breadcrumbs').text() +
+        $('.head-box .head-left').text() +
+        $('.head-box .head-main').text() +
+        $('.content-in').text();
     let matchWords = [];
     for (let word of keywords) {
         if (mainText.includes(word)) {
@@ -87,18 +193,20 @@ function checkProduct() {
     }
     if (matchWords.length > 0) {
         id = 4;
-        tip += "包含违禁关键词：" + matchWords.join(" - ");
+        tip += '包含违禁关键词：' + matchWords.join(' - ');
     }
     if (id === 0) {
-        tip = "正常！";
+        tip = '正常！';
     } else {
-        $("#tipx").css("background-color", "red");
-        publics.myAlert("⚠️ 警告提示", tip);
+        $('#tipx').css('background-color', 'red');
+        publics.myAlert('⚠️ 警告提示', tip);
     }
-    $("#tipx").text(`检查结果: ${tip}`);
+    $('#tipx').text(`检查结果: ${tip}`);
     $(function () {
         // 1. 注入纯 CSS 样式（模拟之前的科技蓝渐变和 20px 字号）
-        $('<style>').text(`
+        $('<style>')
+            .text(
+                `
         #auto-tip {
             position: fixed;
             display: none;
@@ -116,47 +224,53 @@ function checkProduct() {
             transition: opacity 0.2s;
             opacity: 0;
         }
-    `).appendTo('head');
+    `,
+            )
+            .appendTo('head');
 
         // 2. 创建 Tip 容器
         const $customTip = $('<div id="auto-tip"></div>').appendTo('body');
 
         // 3. 通用显示逻辑
         function handleTip(selector, message, condition = () => true) {
-            $(document).on('mouseenter', selector, function (e) {
-                if (condition(this)) {
-                    $customTip.text(message)
-                        .show()
-                        .css({
-                            left: e.clientX + 15 + 'px',
-                            top: e.clientY + 15 + 'px',
-                            opacity: 1
-                        });
-                }
-            }).on('mousemove', selector, function (e) {
-                $customTip.css({
-                    left: e.clientX + 15 + 'px',
-                    top: e.clientY + 15 + 'px'
+            $(document)
+                .on('mouseenter', selector, function (e) {
+                    if (condition(this)) {
+                        $customTip
+                            .text(message)
+                            .show()
+                            .css({
+                                left: e.clientX + 15 + 'px',
+                                top: e.clientY + 15 + 'px',
+                                opacity: 1,
+                            });
+                    }
+                })
+                .on('mousemove', selector, function (e) {
+                    $customTip.css({
+                        left: e.clientX + 15 + 'px',
+                        top: e.clientY + 15 + 'px',
+                    });
+                })
+                .on('mouseleave', selector, function () {
+                    $customTip.css({ opacity: 0 }).hide();
                 });
-            }).on('mouseleave', selector, function () {
-                $customTip.css({ opacity: 0 }).hide();
-            });
         }
 
         // 4. 绑定具体元素逻辑
         // A. 超链接
-        handleTip(".main a", "⚠️ 存在超链接！");
+        handleTip('.main a', '⚠️ 存在超链接！');
 
         // B. 非超链接小手
-        handleTip(".main *[style*=pointer]", "👉 存在非超链接小手！", (el) => !$(el).is('a'));
+        handleTip('.main *[style*=pointer]', '👉 存在非超链接小手！', (el) => !$(el).is('a'));
 
         // C. 外链图片
-        handleTip(".main img", "🖼️ 存在外链图片！", (el) => {
-            const src = $(el).attr("src") || "";
-            return !src.includes("aimg8.dlssyht.cn");
+        handleTip('.main img', '🖼️ 存在外链图片！', (el) => {
+            const src = $(el).attr('src') || '';
+            return !src.includes('aimg8.dlssyht.cn');
         });
     });
-};
+}
 function zhutu_upload() {
     // Create a single upload button
     let html = `
@@ -175,13 +289,12 @@ function zhutu_upload() {
             </td>
         </tr>
         `;
-    if ($("#add_guige").length) {
-        $("#add_guige").parents("tr").before(html);
+    if ($('#add_guige').length) {
+        $('#add_guige').parents('tr').before(html);
+    } else {
+        $('#mp4_upload').parents('tr').before(html);
     }
-    else {
-        $("#mp4_upload").parents("tr").before(html);
-    }
-    $("#zhutu").click(function () {
+    $('#zhutu').click(function () {
         // Get the file input element
         let $fileInput = $(this).next('input[type="file"]');
 
@@ -249,7 +362,13 @@ function zhutu_upload() {
                         }, 'image/png');
                     } else {
                         // Directly upload the square image
-                        uploadImage(dataURLtoBlob(e.target.result), file.name, index, resolve, reject); // Pass resolve and reject
+                        uploadImage(
+                            dataURLtoBlob(e.target.result),
+                            file.name,
+                            index,
+                            resolve,
+                            reject,
+                        ); // Pass resolve and reject
                     }
                 };
                 img.src = e.target.result;
@@ -266,27 +385,30 @@ function zhutu_upload() {
         formData.append('name', filename);
         formData.append('chunk', 0);
         formData.append('chunks', 1);
-        let url = location.origin + `/Ajax/plupload.php?username=${publics.getUrlParameter(location.href, "username")}&set_type=2`;
+        let url =
+            location.origin +
+            `/Ajax/plupload.php?username=${publics.getUrlParameter(location.href, 'username')}&set_type=2`;
 
         // Use fetch to upload
         fetch(url, {
             method: 'POST',
-            body: formData
+            body: formData,
         })
-            .then(response => response.text())
-            .then(responseText => {
+            .then((response) => response.text())
+            .then((responseText) => {
                 console.log('Upload successful:', responseText);
                 // Assume the server response returns the image URL
-                let uploadedImageUrl = responseText.trim().split("?")[0];  // Modify this based on your actual response
+                let uploadedImageUrl = responseText.trim().split('?')[0]; // Modify this based on your actual response
 
                 // Resize image URL for thumbnail
-                let resizedUrl = uploadedImageUrl + '?x-oss-process=image/resize,m_lfit,w_100,h_80,limit_0';
+                let resizedUrl =
+                    uploadedImageUrl + '?x-oss-process=image/resize,m_lfit,w_100,h_80,limit_0';
 
                 // Immediately update the DOM after uploading
                 updateDOM(resizedUrl, index); // Pass index to update DOM for the correct element
                 resolve(); // Resolve the promise to proceed with the next image
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log('Upload failed:', error);
                 reject(error); // Reject the promise if there's an error
             });
@@ -301,34 +423,32 @@ function zhutu_upload() {
 
         // Check if the corresponding DOM elements exist
         if (propicElement.length) {
-            propicElement.find('img').attr('src', imageUrl);  // Set image src
-            propicElement.css('display', 'table-row');  // Show the image row
+            propicElement.find('img').attr('src', imageUrl); // Set image src
+            propicElement.css('display', 'table-row'); // Show the image row
         } else {
             console.log(`#propic${index} does not exist.`);
         }
 
         if (picElement.length) {
-            picElement.val(imageUrl.split('?')[0]);  // Set the hidden input value (without query parameters)
+            picElement.val(imageUrl.split('?')[0]); // Set the hidden input value (without query parameters)
         } else {
             console.log(`#pic${index} does not exist.`);
         }
     }
 }
 function guigetu_upload() {
-
     // --- 关键修复：将 uploadedUrls 与 files 提升到全局作用域 ---
     let uploadedUrls = [];
     let files = [];
 
     // 创建上传按钮事件
-    $("#guigetu").click(function () {
+    $('#guigetu').click(function () {
         let $fileInput = $(this).next('input[type="file"]');
 
         // 先解绑旧事件
         $fileInput.off('change').on('change', function (event) {
-
-            files = event.target.files;     // 赋值全局变量
-            uploadedUrls = [];              // 每次上传前清空
+            files = event.target.files; // 赋值全局变量
+            uploadedUrls = []; // 每次上传前清空
 
             async function uploadFiles() {
                 for (let i = 0; i < files.length; i++) {
@@ -336,7 +456,7 @@ function guigetu_upload() {
                 }
             }
 
-            uploadFiles();  // 开始上传
+            uploadFiles(); // 开始上传
         });
 
         $fileInput.trigger('click');
@@ -361,7 +481,6 @@ function guigetu_upload() {
             reader.onload = function (e) {
                 let img = new Image();
                 img.onload = function () {
-
                     let isSquare = img.width === img.height;
 
                     if (!isSquare) {
@@ -380,14 +499,13 @@ function guigetu_upload() {
                         canvas.toBlob(function (blob) {
                             uploadImage(blob, file.name, index, resolve, reject);
                         }, 'image/png');
-
                     } else {
                         uploadImage(
                             dataURLtoBlob(e.target.result),
                             file.name,
                             index,
                             resolve,
-                            reject
+                            reject,
                         );
                     }
                 };
@@ -400,25 +518,26 @@ function guigetu_upload() {
 
     // 上传图片到服务器
     function uploadImage(imageBlob, filename, index, resolve, reject) {
-
         let formData = new FormData();
         formData.append('file', imageBlob, filename);
         formData.append('name', filename);
         formData.append('chunk', 0);
         formData.append('chunks', 1);
 
-        let url = location.origin + `/Ajax/plupload.php?username=${publics.getUrlParameter(location.href, "username")}&type=10`;
+        let url =
+            location.origin +
+            `/Ajax/plupload.php?username=${publics.getUrlParameter(location.href, 'username')}&type=10`;
 
         fetch(url, {
             method: 'POST',
-            body: formData
+            body: formData,
         })
-            .then(response => response.text())
-            .then(responseText => {
+            .then((response) => response.text())
+            .then((responseText) => {
+                let uploadedImageUrl = responseText.trim().split('?')[0];
 
-                let uploadedImageUrl = responseText.trim().split("?")[0];
-
-                let resizedUrl = uploadedImageUrl + '?x-oss-process=image/resize,m_lfit,w_150,h_150,limit_0';
+                let resizedUrl =
+                    uploadedImageUrl + '?x-oss-process=image/resize,m_lfit,w_150,h_150,limit_0';
 
                 uploadedUrls.push(resizedUrl);
 
@@ -427,7 +546,7 @@ function guigetu_upload() {
 
                 resolve();
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log('Upload failed:', error);
                 reject(error);
             });
@@ -435,9 +554,7 @@ function guigetu_upload() {
 
     // 更新表格中的图片
     function updateDOM(uploadedUrls, currentIndex, totalFiles) {
-
         $('#combination_table tr[data-sn]').each(function (index) {
-
             let tableRow = $(this);
             let rowIndex = index + 1;
 
@@ -460,9 +577,9 @@ function xiangqingtu_upload() {
 
     // 页面加载时，移除a标签的onclick事件
 
-    $('#submit_msg a').attr('onclick', "");
+    $('#submit_msg a').attr('onclick', '');
 
-    $("#xiangqingtu").click(() => {
+    $('#xiangqingtu').click(() => {
         // 获取iframe中的图片元素
         var iframe = $('#ueditor_0').contents();
         var images = iframe.find('img');
@@ -476,19 +593,21 @@ function xiangqingtu_upload() {
             var alt = img.attr('alt');
 
             // 获取图片的二进制数据并上传
-            fetchImageData(imageUrl).then(function (imageData) {
-                // 动态获取图片类型和大小
-                var filetype = getImageFileType(imageData);
-                var filesize = imageData.byteLength;
-                console.log(filetype);
-                console.log(filesize);
-                // 上传图片
-                uploadImage(imageData, filetype, filesize, img, alt);
-            }).catch(function (error) {
-                console.error('获取图片数据失败:', error);
-                failedImages++; // 失败次数加1
-                updateProgress(); // 更新进度
-            });
+            fetchImageData(imageUrl)
+                .then(function (imageData) {
+                    // 动态获取图片类型和大小
+                    var filetype = getImageFileType(imageData);
+                    var filesize = imageData.byteLength;
+                    console.log(filetype);
+                    console.log(filesize);
+                    // 上传图片
+                    uploadImage(imageData, filetype, filesize, img, alt);
+                })
+                .catch(function (error) {
+                    console.error('获取图片数据失败:', error);
+                    failedImages++; // 失败次数加1
+                    updateProgress(); // 更新进度
+                });
         });
     });
     // 获取图片二进制数据
@@ -508,7 +627,7 @@ function xiangqingtu_upload() {
                 },
                 onerror: function () {
                     reject('请求失败');
-                }
+                },
             });
         });
     }
@@ -549,13 +668,13 @@ function xiangqingtu_upload() {
             url: origin + '/ueditor/php/controller.php?action=uploadimage&encode=gbk&nozip=1',
             data: formData,
             headers: {
-                'X_Requested_With': 'XMLHttpRequest',
-                'DNT': '1',
+                X_Requested_With: 'XMLHttpRequest',
+                DNT: '1',
                 'Sec-GPC': '1',
-                'Origin': origin,
-                'Referer': referer,
-                'Cookie': document.cookie,
-                'Idempotency-Key': Math.random().toString(36).substring(2, 15)
+                Origin: origin,
+                Referer: referer,
+                Cookie: document.cookie,
+                'Idempotency-Key': Math.random().toString(36).substring(2, 15),
             },
             onload: function (response) {
                 var responseData = JSON.parse(response.responseText);
@@ -567,7 +686,7 @@ function xiangqingtu_upload() {
                 console.log('图片标题:', title);
 
                 // 手动构建按顺序的图片标签
-                var customImgTag = `<img src="${uploadedImageUrl}" style="vertical-align:top;" title="${title}" alt="${$("#proname").val()}" />`;
+                var customImgTag = `<img src="${uploadedImageUrl}" style="vertical-align:top;" title="${title}" alt="${$('#proname').val()}" />`;
 
                 // 替换原始img标签为手动构建的标签
                 img.replaceWith(customImgTag);
@@ -582,19 +701,18 @@ function xiangqingtu_upload() {
                 console.error('图片上传失败:', response.statusText);
                 failedImages++; // 失败次数加1
                 updateProgress(); // 更新进度
-            }
+            },
         });
     }
 
     // 更新上传进度并显示到页面上
     function updateProgress() {
         const progressText = `上传进度: ${completedImages}/${totalImages} 成功: ${completedImages} 失败: ${failedImages}`;
-        $("#uploadProgress").val(progressText).css("display", "inline-block");
+        $('#uploadProgress').val(progressText).css('display', 'inline-block');
     }
 
     // 在提交按钮按下时，检查是否有未包含特定图片的图片
     $('#submit_msg a').on('click', function () {
-
         var iframe = $('#ueditor_0').contents();
         var images = iframe.find('img:not(.edui-upload-video.vjs-default-skin)');
         var hasInvalidImages = false;
@@ -606,8 +724,9 @@ function xiangqingtu_upload() {
                 hasInvalidImages = true;
                 // 为无效图片添加跑马灯彩条效果
                 $(this).css({
-                    'border': '5px solid',
-                    'border-image': 'linear-gradient(to right, red 0%, orange 10%, yellow 20%, lime 30%, cyan 40%, blue 50%, purple 60%) 1',
+                    border: '5px solid',
+                    'border-image':
+                        'linear-gradient(to right, red 0%, orange 10%, yellow 20%, lime 30%, cyan 40%, blue 50%, purple 60%) 1',
                 });
             }
         });
@@ -627,8 +746,7 @@ function auto_city() {
             const city = $('#city').val();
             await set('city', city);
         });
-    }
-    else if (url.includes('sc_product.php') && !url.includes("&id=")) {
+    } else if (url.includes('sc_product.php') && !url.includes('&id=')) {
         let css = `
             <style>
                 #submit_msg {
@@ -640,7 +758,7 @@ function auto_city() {
                 }
             </style>
             `;
-        $("body").append(css);
+        $('body').append(css);
         $('#proname').on('input', function () {
             const pronameValue = $(this).val();
             $('#keywords').val(pronameValue);
@@ -651,13 +769,13 @@ function auto_city() {
                 const big_id = $('#big_id').val();
                 if (big_id) {
                     await set('big_id', big_id);
-                    console.log("系统分类", big_id);
+                    console.log('系统分类', big_id);
                     clearInterval(t);
                 }
             }, 100);
         });
-        get('big_id').then(big_id => {
-            console.log("系统分类", big_id);
+        get('big_id').then((big_id) => {
+            console.log('系统分类', big_id);
             if (big_id) {
                 let t = setInterval(() => {
                     if ($('#big_id').length) {
@@ -673,18 +791,18 @@ function auto_city() {
                 const shop_pro_class_big_id = $('#shop_pro_class_big_id').val();
                 if (shop_pro_class_big_id) {
                     await set('shop_pro_class_big_id', shop_pro_class_big_id);
-                    console.log("自定义分类-大类", shop_pro_class_big_id);
+                    console.log('自定义分类-大类', shop_pro_class_big_id);
                     clearInterval(t);
                 }
             }, 100);
         });
-        get('shop_pro_class_big_id').then(shop_pro_class_big_id => {
-            console.log("自定义分类-大类", shop_pro_class_big_id);
+        get('shop_pro_class_big_id').then((shop_pro_class_big_id) => {
+            console.log('自定义分类-大类', shop_pro_class_big_id);
             if (shop_pro_class_big_id) {
                 let t = setInterval(() => {
                     if ($('#shop_pro_class_big_id').length) {
                         $('#shop_pro_class_big_id').val(`${shop_pro_class_big_id}`);
-                        $("#shop_pro_class_big_id").change();
+                        $('#shop_pro_class_big_id').change();
                         clearInterval(t);
                     }
                 }, 100);
@@ -696,18 +814,18 @@ function auto_city() {
                 const shop_pro_class_sub_id = $('#shop_pro_class_sub_id').val();
                 if (shop_pro_class_sub_id) {
                     await set('shop_pro_class_sub_id', shop_pro_class_sub_id);
-                    console.log("自定义分类-小类", shop_pro_class_sub_id);
+                    console.log('自定义分类-小类', shop_pro_class_sub_id);
                     clearInterval(t);
                 }
             }, 100);
         });
-        get('shop_pro_class_sub_id').then(shop_pro_class_sub_id => {
-            console.log("自定义分类-小类", shop_pro_class_sub_id);
+        get('shop_pro_class_sub_id').then((shop_pro_class_sub_id) => {
+            console.log('自定义分类-小类', shop_pro_class_sub_id);
             if (shop_pro_class_sub_id) {
                 let t = setInterval(() => {
                     if ($('#shop_pro_class_sub_id').length) {
                         $('#shop_pro_class_sub_id').val(`${shop_pro_class_sub_id}`);
-                        $("#shop_pro_class_sub_id").change();
+                        $('#shop_pro_class_sub_id').change();
                         clearInterval(t);
                     }
                 }, 100);
@@ -721,22 +839,25 @@ function auto_city() {
                 await set('selectedValue', selectedValue);
             }, 100);
         });
-        get('selectedValue').then(selectedValue => {
-            console.log("服务专区", selectedValue);
+        get('selectedValue').then((selectedValue) => {
+            console.log('服务专区', selectedValue);
             if (selectedValue) {
-                $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop('checked', true);
+                $('input[name="exclusive_model"][value="' + selectedValue + '"]').prop(
+                    'checked',
+                    true,
+                );
             }
         });
         // 城市
-        get('city').then(city => {
-            console.log("城市", city);
+        get('city').then((city) => {
+            console.log('城市', city);
             if (city) {
                 $('#citycode').val($(`#citycode option:contains(${city})`).val());
             }
         });
         $('#submit_msg').on('mousedown', function () {
             let imagesHtml = '';
-            let title = $("#proname").val();
+            let title = $('#proname').val();
             for (let i = 1; i <= 8; i++) {
                 const img = $(`#propic${i} img`);
                 if (img.length) {
@@ -744,9 +865,18 @@ function auto_city() {
                     imagesHtml += `<p><img src="${src}" title="${title}" alt="${title}" /></p>`;
                 }
             }
-            $("#ueditor_0").contents().find("body").html(imagesHtml);
+            $('#ueditor_0').contents().find('body').html(imagesHtml);
         });
     }
 }
-export { open_close_shop_products, showKeyword, fetchChIdsAndTitles, checkProduct, zhutu_upload, guigetu_upload, xiangqingtu_upload, auto_city }
-// End-752-2026.05.23.104247
+export {
+    open_close_shop_products,
+    showKeyword,
+    fetchChIdsAndTitles,
+    checkProduct,
+    zhutu_upload,
+    guigetu_upload,
+    xiangqingtu_upload,
+    auto_city,
+};
+// End-882-2026.07.14.152047
