@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         车保姆产品发布助手
 // @namespace    http://tampermonkey.net/
-// @version      2026.08.06.102612
+// @version      2026.08.06.104409
 // @description  车保姆产品发布助手
 // @author       Kay
 // @match        http://cbm.qipeiyigou.com/dom/sc_product.php*
@@ -159,6 +159,11 @@
     // 页面加载完成执行回填
     $(function () {
         if ($('#submit_msg').text().includes('添 加')) {
+            $('#proname').on('input', function () {
+                const val = $(this).val();
+                $('#keywords').val(val);
+            });
+
             fillSavedData();
 
             // #submit_msg mousedown 触发保存
@@ -180,4 +185,4 @@
         }
     });
 })(jQuery);
-// End-183-2026.08.06.102612
+// End-188-2026.08.06.104409
