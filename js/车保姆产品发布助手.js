@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         车保姆产品发布
+// @name         车保姆产品发布助手
 // @namespace    http://tampermonkey.net/
-// @version      2026.08.06.102137
-// @description  车保姆产品发布
+// @version      2026.08.06.102612
+// @description  车保姆产品发布助手
 // @author       Kay
-// @match        *://*/*
+// @match        http://cbm.qipeiyigou.com/dom/sc_product.php*
 // @require      https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/jquery/3.7.1/jquery.min.js
 // @grant        GM_setValue
 // @grant        GM_getValue
@@ -180,4 +180,4 @@
         }
     });
 })(jQuery);
-// End-183-2026.08.06.102137
+// End-183-2026.08.06.102612
